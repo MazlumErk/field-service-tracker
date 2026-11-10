@@ -1,8 +1,15 @@
+import 'dart:async';
+
+import 'package:field_service_tracker/app/app_dependencies.dart';
 import 'package:field_service_tracker/app/router/app_router.dart';
 import 'package:field_service_tracker/app/router/app_routes.dart';
 import 'package:field_service_tracker/app/theme/app_theme.dart';
 import 'package:field_service_tracker/core/app_info.dart';
 import 'package:field_service_tracker/core/clock/app_clock.dart';
+import 'package:field_service_tracker/features/customers/domain/customer_repository.dart';
+import 'package:field_service_tracker/features/devices/domain/device_repository.dart';
+import 'package:field_service_tracker/features/maintenance/domain/maintenance_repository.dart';
+import 'package:field_service_tracker/features/settings/domain/demo_data_repository.dart';
 import 'package:field_service_tracker/l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -10,19 +17,22 @@ import 'package:material_ui/material_ui.dart';
 
 /// Root widget: owns the router and exposes app-wide dependencies.
 ///
-/// Dependency graph (grows in later phases):
-/// `RepositoryProvider<AppClock>`, `RepositoryProvider<AppInfo>`
-/// → repositories (Phase 2) → page-scoped Cubits via `BlocProvider`.
+/// Repositories are provided by their **interface** type; Cubits are created
+/// per route with `BlocProvider` (from Phase 3 on).
 class FieldServiceTrackerApp extends StatefulWidget {
   const FieldServiceTrackerApp({
     required this.clock,
     required this.appInfo,
+    required this.dependencies,
     this.initialLocation = AppRoutes.dashboard,
     super.key,
   });
 
   final AppClock clock;
   final AppInfo appInfo;
+
+  /// Owned by this widget: the database is closed when the app is disposed.
+  final AppDependencies dependencies;
 
   /// Start route; overridable for widget tests.
   final String initialLocation;
@@ -39,15 +49,29 @@ class _FieldServiceTrackerAppState extends State<FieldServiceTrackerApp> {
   @override
   void dispose() {
     _router.dispose();
+    unawaited(widget.dependencies.dispose());
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    final deps = widget.dependencies;
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider<AppClock>.value(value: widget.clock),
         RepositoryProvider<AppInfo>.value(value: widget.appInfo),
+        RepositoryProvider<CustomerRepository>.value(
+          value: deps.customerRepository,
+        ),
+        RepositoryProvider<DeviceRepository>.value(
+          value: deps.deviceRepository,
+        ),
+        RepositoryProvider<MaintenanceRepository>.value(
+          value: deps.maintenanceRepository,
+        ),
+        RepositoryProvider<DemoDataRepository>.value(
+          value: deps.demoDataRepository,
+        ),
       ],
       child: MaterialApp.router(
         onGenerateTitle: (context) => AppLocalizations.of(context).appTitle,

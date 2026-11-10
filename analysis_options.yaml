@@ -10,6 +10,7 @@ analyzer:
     - android/**
     - "**/*.g.dart"
     - lib/l10n/app_localizations*.dart
+    - test/database/generated_schema/**
 
 linter:
   rules:

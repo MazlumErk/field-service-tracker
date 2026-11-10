@@ -24,6 +24,9 @@
   "notFoundMessage": "Aradığınız kayıt veya sayfa mevcut değil ya da silinmiş olabilir.",
   "backToDashboard": "Genel Bakış'a dön",
 
+  "startupErrorTitle": "Veriler açılamadı",
+  "startupErrorMessage": "Uygulama verilerine şu anda erişilemiyor. Lütfen uygulamayı kapatıp yeniden açın. Sorun devam ederse cihazda yeterli boş alan olduğundan emin olun.",
+
   "settingsSectionApp": "Uygulama",
   "settingsAbout": "Uygulama hakkında",
   "settingsAboutDescription": "Su arıtma ve saha servis işletmeleri için internet gerektirmeyen müşteri, cihaz ve periyodik bakım takip uygulaması. Tüm veriler cihazda saklanır; demo verileri tamamen kurgusaldır.",

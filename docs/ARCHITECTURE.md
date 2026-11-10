@@ -1,7 +1,8 @@
 # Architecture
 
-> Status: **Phase 1** — app shell, theme, routing and dependency wiring are
-> implemented. Data layer and features are planned (marked *planned*).
+> Status: **Phase 2** — app shell, theme, routing, dependency wiring, the
+> database, domain rules and repositories are implemented. Screens are
+> planned (marked *planned*).
 > Rules are defined in [AGENTS.md](../AGENTS.md); this document explains them.
 
 ## Layers and data flow
@@ -17,19 +18,42 @@ flowchart TD
     CL["AppClock"] -.injected.-> C
 ```
 
-- **Reactive updates (planned):** DAOs expose Drift `watch()` streams.
-  Dashboard and Maintenance list subscribe to one *maintenance overview*
-  stream (device + customer + latest record). Saving a maintenance record
-  triggers the stream, so both screens update without manual refresh.
-- **Status calculation (planned)** is a pure domain function applied to the
-  stream data with today's date from `AppClock`.
+- **Reactive updates:** DAOs expose Drift `watch()` streams; repositories map
+  them to domain models. `MaintenanceRepository.watchOverview()` returns every
+  device with its customer and latest maintenance dates (one SQL query with a
+  correlated sub-query). Saving a record re-triggers it, so dashboard and
+  lists will update without manual refresh.
+- **Status calculation** (`MaintenanceStatusCalculator`) is a pure domain
+  function. Overviews store dates only; Cubits call `statusOn(today)` with
+  `CalendarDate.today(clock)`, so the status is always correct for the
+  current day even if no data changed.
+- **Stream lifetime:** Drift watch streams are lazy; they stop when the last
+  listener cancels (Cubits cancel in `close()`). `AppDependencies.dispose()`
+  closes the database when the root widget is disposed.
+
+## Domain building blocks
+
+| Area | Classes |
+|---|---|
+| Core | `CalendarDate` (date-only value object), `TurkishText`, `AppClock`, `ValidationResult`, `AppException` hierarchy |
+| Customers | `Customer`, `CustomerListItem`, `CustomerDraft`, `CustomerDeletionImpact`, `CustomerNumber`, `CustomerValidator`, `CustomerRepository` |
+| Devices | `Device`, `DeviceDraft`, `DeviceValidator`, `DeviceRepository` |
+| Maintenance | `MaintenanceRecord`, `MaintenanceRecordDraft`, `FilterType`, `MaintenanceStatus` + `MaintenanceStatusCalculator`, `MaintenanceSchedule`, `MaintenancePrice`, `MaintenanceValidator`, `DeviceMaintenanceOverview`, `MaintenanceRepository` |
+| Settings | `DemoDataRepository` |
+
+Repositories validate drafts again before writing (defence in depth) and
+throw only `AppException` subtypes: `NotFoundException`,
+`ValidationException`, `DuplicateCustomerNumberException`,
+`ConstraintViolationException`, `DatabaseException`.
 
 ## Dependency injection
 
 ```mermaid
 flowchart LR
     main["main.dart<br/>bootstrap"] --> app["FieldServiceTrackerApp"]
-    app --> RP["MultiRepositoryProvider<br/>AppClock, AppInfo<br/>+ repositories (Phase 2)"]
+    main --> deps["AppDependencies<br/>AppDatabase + Drift repositories"]
+    deps --> app
+    app --> RP["MultiRepositoryProvider<br/>AppClock, AppInfo,<br/>Customer/Device/Maintenance/DemoData<br/>repository interfaces"]
     RP --> router["GoRouter"]
     router --> page["Route page"]
     page --> BP["BlocProvider<br/>(route-scoped Cubit)"]
@@ -69,4 +93,8 @@ popped. Repositories and the database are app-wide singletons.
 | No use-case layer for CRUD | Avoids pass-through classes; domain services only for real rules. |
 | Bundled Inter font | Offline-first: no runtime font download. |
 | gen-l10n with a single `tr` ARB | Official tooling, compile-time checked strings, ready for more locales. |
-| Date-only values for maintenance dates (planned) | Prevents timezone / DST day shifts. |
+| Date-only `CalendarDate` for maintenance dates | Prevents timezone / DST day shifts; ISO text sorts correctly in SQL. |
+| `ON DELETE RESTRICT` + explicit transactional cascade | The schema blocks accidental bulk deletes; the user confirms counts first. |
+| Seeder runs in `beforeOpen` when `wasCreated` | Exactly once per install, with foreign keys already enforced; no "seeded" flag table. |
+| Turkish-folded `search_key` column | SQLite `LIKE` folds ASCII only. |
+| Database ↔ DAO import cycle | Standard Drift pattern (`part` files); no other cycles exist. |

@@ -196,6 +196,18 @@ abstract class AppLocalizations {
   /// **'Genel Bakış\'a dön'**
   String get backToDashboard;
 
+  /// No description provided for @startupErrorTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Veriler açılamadı'**
+  String get startupErrorTitle;
+
+  /// No description provided for @startupErrorMessage.
+  ///
+  /// In tr, this message translates to:
+  /// **'Uygulama verilerine şu anda erişilemiyor. Lütfen uygulamayı kapatıp yeniden açın. Sorun devam ederse cihazda yeterli boş alan olduğundan emin olun.'**
+  String get startupErrorMessage;
+
   /// No description provided for @settingsSectionApp.
   ///
   /// In tr, this message translates to:

@@ -3,9 +3,10 @@
 **Offline-first field service and maintenance management application built
 with Flutter, BLoC and SQLite.**
 
-> 🚧 **Work in progress — Phase 1 of 9 (project foundation).**
-> The app shell, design system and navigation are in place. Customer, device
-> and maintenance features are being built; see the [roadmap](#roadmap).
+> 🚧 **Work in progress — Phase 2 of 9 (database & domain layer).**
+> The app shell, design system, navigation, SQLite database, business rules
+> and repositories are in place and tested. The customer, device and
+> maintenance screens are being built; see the [roadmap](#roadmap).
 > Screenshots and a demo video will be added once real screens exist.
 
 ## Project Overview
@@ -21,7 +22,9 @@ offline, with all data stored on the device. The UI is in Turkish.
 | Material 3 app shell with 4-tab navigation | ✅ |
 | "Calm Operations" design system (Inter, tokens, status colors) | ✅ |
 | Settings: about, version, open-source licenses | ✅ |
-| Local SQLite database with fictional demo data and reset | ⏳ |
+| Local SQLite database (Drift) with integrity constraints | ✅ |
+| Fictional demo data on first launch, transactional reset service | ✅ (reset button ⏳) |
+| Maintenance status rules (overdue / upcoming / scheduled) | ✅ (logic, UI ⏳) |
 | Customers: search, create, edit, delete | ⏳ |
 | Devices and maintenance history | ⏳ |
 | Maintenance records with filter replacements and pricing | ⏳ |
@@ -59,7 +62,9 @@ Details: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 ## Database Design
 
-See [docs/DATABASE.md](docs/DATABASE.md) (implemented in Phase 2).
+Four related tables — customers → devices → maintenance records → filter
+replacements — with foreign keys (`RESTRICT`), unique and check constraints.
+Details: [docs/DATABASE.md](docs/DATABASE.md).
 
 ## Project Structure
 
@@ -68,7 +73,7 @@ lib/
   app/        app widget, router, theme
   core/       clock, extensions, shared widgets
   l10n/       Turkish strings (ARB)
-  database/   Drift database, tables, DAOs, seed   (Phase 2)
+  database/   Drift database, tables, DAOs, seed
   features/   dashboard, customers, devices, maintenance, settings
 docs/         architecture, database, design system, features, testing
 ```
@@ -99,7 +104,7 @@ See [docs/DESIGN_SYSTEM.md](docs/DESIGN_SYSTEM.md).
 ## Roadmap
 
 1. ✅ Project foundation — theme, routing, DI, docs
-2. ⏳ Database — Drift schema, DAOs, repositories, seed
+2. ✅ Database & domain — Drift schema, DAOs, repositories, rules, seed
 3. ⏳ Customers
 4. ⏳ Devices
 5. ⏳ Maintenance

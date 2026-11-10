@@ -88,8 +88,10 @@ docs/                  ARCHITECTURE, DATABASE, DESIGN_SYSTEM, FEATURES, TESTING
   when a build method grows beyond one screen of code.
 - Errors are never swallowed: log technical details with `dart:developer`
   `log`, show the user a friendly Turkish message, never a raw exception.
-- Money is stored as integer **kuruş**. Calendar dates are date-only values
-  (no time, no timezone).
+- Money is stored as integer **kuruş**. Calendar dates are `CalendarDate`
+  values (no time, no timezone); timestamps are UTC `DateTime`.
+- Turkish text: use `TurkishText` for lowercasing, search keys and sorting —
+  never plain `toLowerCase()` / `compareTo` on names.
 - Dispose controllers, cancel stream subscriptions, close Cubits / DB.
 
 ## 6. Testing rules
@@ -113,6 +115,8 @@ docs/                  ARCHITECTURE, DATABASE, DESIGN_SYSTEM, FEATURES, TESTING
 - Every schema change bumps `schemaVersion`, adds a migration step and a
   migration test. No unplanned schema edits.
 - Demo seed runs only when the database is created and is deterministic.
+- Repositories wrap every DAO call with `guardDatabase` /
+  `guardDatabaseStream` so no `SqliteException` reaches a Cubit.
 - Generated files (`*.g.dart`, `lib/l10n/app_localizations*.dart`) are
   committed; regenerate with the commands in `docs/TESTING.md`.
 

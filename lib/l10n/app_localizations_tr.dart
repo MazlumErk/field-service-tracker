@@ -63,6 +63,13 @@ class AppLocalizationsTr extends AppLocalizations {
   String get backToDashboard => 'Genel Bakış\'a dön';
 
   @override
+  String get startupErrorTitle => 'Veriler açılamadı';
+
+  @override
+  String get startupErrorMessage =>
+      'Uygulama verilerine şu anda erişilemiyor. Lütfen uygulamayı kapatıp yeniden açın. Sorun devam ederse cihazda yeterli boş alan olduğundan emin olun.';
+
+  @override
   String get settingsSectionApp => 'Uygulama';
 
   @override
