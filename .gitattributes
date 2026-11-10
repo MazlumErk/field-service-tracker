@@ -1,0 +1,10 @@
+# Normalize line endings so `dart format` checks match on every OS (CI is Linux).
+* text=auto eol=lf
+
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+*.png binary
+*.jpg binary
+*.ttf binary
+*.jar binary
