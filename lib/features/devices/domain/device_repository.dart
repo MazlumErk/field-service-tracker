@@ -15,6 +15,16 @@ abstract interface class DeviceRepository {
   /// Throws `NotFoundException` (unknown customer) or `ValidationException`.
   Future<Device> createDevice(int customerId, DeviceDraft draft);
 
+  /// Updates model, serial number and installation date. The owning
+  /// customer can never be changed through this method.
   /// Throws `NotFoundException` or `ValidationException`.
   Future<Device> updateDevice(int id, DeviceDraft draft);
+
+  /// Counts what [deleteDevice] would remove. Throws `NotFoundException`.
+  Future<DeviceDeletionImpact> getDeletionImpact(int id);
+
+  /// Deletes the device **and** its maintenance records and filter
+  /// replacements in one transaction. Call only after the user confirmed the
+  /// [getDeletionImpact] counts. Throws `NotFoundException`.
+  Future<void> deleteDevice(int id);
 }

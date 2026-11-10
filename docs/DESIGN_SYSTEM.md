@@ -67,13 +67,21 @@ Text scales with the system font size; layouts must not overflow at 1.3×–2×.
 | `MaintenanceStatusBadge` | ✅ Phase 3 | Icon + label + status colors (never color only) |
 | `DeviceOverviewTile` | ✅ Phase 3 | Model, serial number, status badge, next date |
 | `CustomerListTile`, `CustomerInfoCard`, `CustomerInitialsAvatar` | ✅ Phase 3 | Customer feature widgets; secondary info wraps instead of overflowing |
-| `AppMetricCard`, maintenance cards | planned | Dashboard / maintenance phases |
+| `UnsavedChangesGuard` | ✅ Phase 4 | `PopScope` + destructive confirmation ("Değişiklikleri At"); unfocuses after "Vazgeç" so one back press is enough |
+| `DeviceSummaryCard` | ✅ Phase 4 | Status block (badge + plain-language days), dates, tappable owner |
+| `MaintenanceRecordCard` | ✅ Phase 4 | Date, price, next date, filter chips, notes |
+| `AppMetricCard` | planned | Dashboard phase |
 
 ## Dates
 
 User-visible dates use `context.formatDate(CalendarDate)` →
 `DateFormat.yMMMd` of the active locale ("19 Oca 2026"). Material's
 `formatMediumDate` is not used: its Turkish pattern omits the year.
+
+## Money
+
+`context.formatKurus(int)` → `NumberFormat.currency` of the active locale
+with the `₺` symbol ("₺1.250,50"). Amounts are stored as integer kuruş.
 
 ## Motion
 

@@ -1,8 +1,8 @@
 # Architecture
 
-> Status: **Phase 3** — app shell, theme, routing, database, domain rules,
-> repositories and the customer management screens are implemented.
-> Device, maintenance and dashboard screens are planned.
+> Status: **Phase 4** — app shell, theme, routing, database, domain rules,
+> repositories, customer and device management are implemented. The
+> maintenance form, maintenance list and dashboard are planned.
 > Rules are defined in [AGENTS.md](../AGENTS.md); this document explains them.
 
 ## Layers and data flow
@@ -43,6 +43,11 @@ types, so state subclasses with equal props would be equal).
 | `CustomerListCubit` | Live list + debounced search (250 ms); one subscription at a time, the previous query stream is cancelled; `resultsQuery` keeps counts and empty states consistent while debouncing | `watchCustomers(query)` |
 | `CustomerDetailCubit` | Combines customer + device-overview streams; delete flow `idle → loadingImpact → confirming → deleting → deleted` | `watchCustomer`, `watchCustomerOverview`, `getDeletionImpact`, `deleteCustomer` |
 | `CustomerFormCubit` | Create / edit (`.create` / `.edit`); domain validation before saving; maps `DuplicateCustomerNumberException` to an inline field error; ignores submits unless in `editing` | `getCustomer`, `createCustomer`, `updateCustomer` |
+| `DeviceDetailCubit` | Combines device-overview and history streams; status and days until next maintenance; delete flow `idle → loadingImpact → confirming → deleting → deleted` | `watchDeviceOverview`, `watchHistory`, `getDeletionImpact`, `deleteDevice` |
+| `DeviceFormCubit` | Create (bound to a customer id) / edit (owner never sent); installation date held in state (date picker); domain validation; double-submit guard | `getDevice`, `createDevice`, `updateDevice` |
+
+Forms wrap their page in `UnsavedChangesGuard` (`PopScope`), so the app bar
+back button and the Android back button share one code path.
 
 Every Cubit cancels its stream subscriptions (and timers) in `close()`;
 unit tests assert this with `StreamController.hasListener`.

@@ -3,7 +3,10 @@ import 'package:field_service_tracker/features/customers/domain/customer.dart';
 import 'package:field_service_tracker/features/customers/domain/customer_draft.dart';
 import 'package:field_service_tracker/features/customers/domain/customer_repository.dart';
 import 'package:field_service_tracker/features/devices/domain/device.dart';
+import 'package:field_service_tracker/features/devices/domain/device_repository.dart';
 import 'package:field_service_tracker/features/maintenance/domain/device_maintenance_overview.dart';
+import 'package:field_service_tracker/features/maintenance/domain/filter_type.dart';
+import 'package:field_service_tracker/features/maintenance/domain/maintenance_record.dart';
 import 'package:field_service_tracker/features/maintenance/domain/maintenance_repository.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -11,12 +14,45 @@ class MockCustomerRepository extends Mock implements CustomerRepository {}
 
 class MockMaintenanceRepository extends Mock implements MaintenanceRepository {}
 
+class MockDeviceRepository extends Mock implements DeviceRepository {}
+
 /// Call once in `setUpAll` before using `any()` with these types.
 void registerMockFallbacks() {
   registerFallbackValue(
     const CustomerDraft(customerNumber: 'X', firstName: 'X', lastName: 'X'),
   );
+  registerFallbackValue(
+    DeviceDraft(model: 'X', installedAt: CalendarDate(2024, 1, 1)),
+  );
 }
+
+Device testDevice({
+  int id = 1,
+  int customerId = 1,
+  String model = 'AquaPure RO-5',
+  String? serial,
+}) => Device(
+  id: id,
+  customerId: customerId,
+  model: model,
+  serialNumber: serial,
+  installedAt: CalendarDate(2024, 1, 1),
+  createdAt: DateTime.utc(2024),
+);
+
+MaintenanceRecord testRecord({
+  int id = 1,
+  int deviceId = 1,
+  required CalendarDate date,
+}) => MaintenanceRecord(
+  id: id,
+  deviceId: deviceId,
+  maintenanceDate: date,
+  nextMaintenanceDate: date.addMonths(6),
+  priceKurus: 75000,
+  filters: const [FilterType.sediment],
+  createdAt: DateTime.utc(2025),
+);
 
 Customer testCustomer({
   int id = 1,

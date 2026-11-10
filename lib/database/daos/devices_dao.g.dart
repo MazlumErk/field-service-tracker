@@ -6,6 +6,10 @@ part of 'devices_dao.dart';
 mixin _$DevicesDaoMixin on DatabaseAccessor<AppDatabase> {
   $CustomersTable get customers => attachedDatabase.customers;
   $DevicesTable get devices => attachedDatabase.devices;
+  $MaintenanceRecordsTable get maintenanceRecords =>
+      attachedDatabase.maintenanceRecords;
+  $FilterReplacementsTable get filterReplacements =>
+      attachedDatabase.filterReplacements;
   DevicesDaoManager get managers => DevicesDaoManager(this);
 }
 
@@ -16,4 +20,14 @@ class DevicesDaoManager {
       $$CustomersTableTableManager(_db.attachedDatabase, _db.customers);
   $$DevicesTableTableManager get devices =>
       $$DevicesTableTableManager(_db.attachedDatabase, _db.devices);
+  $$MaintenanceRecordsTableTableManager get maintenanceRecords =>
+      $$MaintenanceRecordsTableTableManager(
+        _db.attachedDatabase,
+        _db.maintenanceRecords,
+      );
+  $$FilterReplacementsTableTableManager get filterReplacements =>
+      $$FilterReplacementsTableTableManager(
+        _db.attachedDatabase,
+        _db.filterReplacements,
+      );
 }

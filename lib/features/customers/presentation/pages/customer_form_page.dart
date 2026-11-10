@@ -7,6 +7,7 @@ import 'package:field_service_tracker/core/errors/app_exception_messages.dart';
 import 'package:field_service_tracker/core/extensions/context_extensions.dart';
 import 'package:field_service_tracker/core/widgets/app_message_state.dart';
 import 'package:field_service_tracker/core/widgets/app_scaffold.dart';
+import 'package:field_service_tracker/core/widgets/unsaved_changes_guard.dart';
 import 'package:field_service_tracker/features/customers/domain/customer.dart';
 import 'package:field_service_tracker/features/customers/domain/customer_draft.dart';
 import 'package:field_service_tracker/features/customers/domain/customer_validator.dart';
@@ -34,24 +35,53 @@ class _CustomerFormPageState extends State<CustomerFormPage> {
   final _controllers = {
     for (final field in CustomerField.values) field: TextEditingController(),
   };
+  final _hasChanges = ValueNotifier(false);
+
+  /// Baseline for unsaved-change detection (empty in create mode).
+  Map<CustomerField, String> _initialValues = {
+    for (final field in CustomerField.values) field: '',
+  };
   bool _prefilled = false;
+  bool _saved = false;
+
+  @override
+  void initState() {
+    super.initState();
+    for (final controller in _controllers.values) {
+      controller.addListener(_updateHasChanges);
+    }
+  }
 
   @override
   void dispose() {
     for (final controller in _controllers.values) {
       controller.dispose();
     }
+    _hasChanges.dispose();
     super.dispose();
+  }
+
+  void _updateHasChanges() {
+    _hasChanges.value =
+        !_saved &&
+        CustomerField.values.any(
+          (field) => _controllers[field]!.text != _initialValues[field],
+        );
   }
 
   void _prefill(Customer customer) {
     if (_prefilled) return;
     _prefilled = true;
-    _controllers[CustomerField.firstName]!.text = customer.firstName;
-    _controllers[CustomerField.lastName]!.text = customer.lastName;
-    _controllers[CustomerField.customerNumber]!.text = customer.customerNumber;
-    _controllers[CustomerField.phone]!.text = customer.phone ?? '';
-    _controllers[CustomerField.address]!.text = customer.address ?? '';
+    _initialValues = {
+      CustomerField.firstName: customer.firstName,
+      CustomerField.lastName: customer.lastName,
+      CustomerField.customerNumber: customer.customerNumber,
+      CustomerField.phone: customer.phone ?? '',
+      CustomerField.address: customer.address ?? '',
+    };
+    for (final field in CustomerField.values) {
+      _controllers[field]!.text = _initialValues[field]!;
+    }
   }
 
   void _submit() {
@@ -88,6 +118,9 @@ class _CustomerFormPageState extends State<CustomerFormPage> {
 
     final saved = state.savedCustomer;
     if (state.status == CustomerFormStatus.success && saved != null) {
+      // Saved: leaving must not ask about unsaved changes.
+      _saved = true;
+      _updateHasChanges();
       messenger.showSnackBar(
         SnackBar(
           content: Text(
@@ -108,28 +141,32 @@ class _CustomerFormPageState extends State<CustomerFormPage> {
     final l10n = context.l10n;
     final isEdit = context.read<CustomerFormCubit>().customerId != null;
 
-    return AppScaffold(
-      title: isEdit ? l10n.customerEditTitle : l10n.customerNewTitle,
-      body: BlocConsumer<CustomerFormCubit, CustomerFormState>(
-        listener: _onStateChanged,
-        builder: (context, state) {
-          return switch (state.status) {
-            CustomerFormStatus.loading => const Center(
-              child: CircularProgressIndicator(),
-            ),
-            CustomerFormStatus.loadFailure => AppMessageState.error(
-              title: l10n.errorLoadTitle,
-              message: state.failure?.userMessage(l10n) ?? l10n.errorUnexpected,
-              action: OutlinedButton.icon(
-                onPressed: () =>
-                    unawaited(context.read<CustomerFormCubit>().load()),
-                icon: const Icon(Icons.refresh),
-                label: Text(l10n.commonRetry),
+    return UnsavedChangesGuard(
+      hasChanges: _hasChanges,
+      child: AppScaffold(
+        title: isEdit ? l10n.customerEditTitle : l10n.customerNewTitle,
+        body: BlocConsumer<CustomerFormCubit, CustomerFormState>(
+          listener: _onStateChanged,
+          builder: (context, state) {
+            return switch (state.status) {
+              CustomerFormStatus.loading => const Center(
+                child: CircularProgressIndicator(),
               ),
-            ),
-            _ => _buildForm(context, state),
-          };
-        },
+              CustomerFormStatus.loadFailure => AppMessageState.error(
+                title: l10n.errorLoadTitle,
+                message:
+                    state.failure?.userMessage(l10n) ?? l10n.errorUnexpected,
+                action: OutlinedButton.icon(
+                  onPressed: () =>
+                      unawaited(context.read<CustomerFormCubit>().load()),
+                  icon: const Icon(Icons.refresh),
+                  label: Text(l10n.commonRetry),
+                ),
+              ),
+              _ => _buildForm(context, state),
+            };
+          },
+        ),
       ),
     );
   }

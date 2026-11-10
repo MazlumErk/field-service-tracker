@@ -60,7 +60,7 @@ void main() {
     );
 
     testAppWidgets('Android system back pops a pushed page', (tester) async {
-      await tester.pumpApp();
+      await tester.pumpApp(seed: true);
 
       unawaited(_router(tester).push(AppRoutes.deviceDetail(3)));
       await tester.pumpAndSettle();

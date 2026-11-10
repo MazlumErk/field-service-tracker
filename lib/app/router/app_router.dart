@@ -11,6 +11,11 @@ import 'package:field_service_tracker/features/customers/presentation/cubit/cust
 import 'package:field_service_tracker/features/customers/presentation/pages/customer_detail_page.dart';
 import 'package:field_service_tracker/features/customers/presentation/pages/customer_form_page.dart';
 import 'package:field_service_tracker/features/customers/presentation/pages/customer_list_page.dart';
+import 'package:field_service_tracker/features/devices/domain/device_repository.dart';
+import 'package:field_service_tracker/features/devices/presentation/cubit/device_detail_cubit.dart';
+import 'package:field_service_tracker/features/devices/presentation/cubit/device_form_cubit.dart';
+import 'package:field_service_tracker/features/devices/presentation/pages/device_detail_page.dart';
+import 'package:field_service_tracker/features/devices/presentation/pages/device_form_page.dart';
 import 'package:field_service_tracker/features/maintenance/domain/maintenance_repository.dart';
 import 'package:field_service_tracker/features/settings/presentation/pages/settings_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -110,8 +115,13 @@ GoRouter createAppRouter({String initialLocation = AppRoutes.dashboard}) {
                         builder: (context, state) => _withId(
                           state,
                           'customerId',
-                          (_) => PlaceholderPage(
-                            title: context.l10n.deviceNewTitle,
+                          (id) => BlocProvider(
+                            create: (context) => DeviceFormCubit.create(
+                              context.read<DeviceRepository>(),
+                              customerId: id,
+                              clock: context.read<AppClock>(),
+                            ),
+                            child: const DeviceFormPage(),
                           ),
                         ),
                       ),
@@ -146,7 +156,15 @@ GoRouter createAppRouter({String initialLocation = AppRoutes.dashboard}) {
         builder: (context, state) => _withId(
           state,
           'deviceId',
-          (_) => PlaceholderPage(title: context.l10n.deviceDetailTitle),
+          (id) => BlocProvider(
+            create: (context) => DeviceDetailCubit(
+              deviceId: id,
+              deviceRepository: context.read<DeviceRepository>(),
+              maintenanceRepository: context.read<MaintenanceRepository>(),
+              clock: context.read<AppClock>(),
+            )..load(),
+            child: const DeviceDetailPage(),
+          ),
         ),
         routes: [
           GoRoute(
@@ -155,7 +173,14 @@ GoRouter createAppRouter({String initialLocation = AppRoutes.dashboard}) {
             builder: (context, state) => _withId(
               state,
               'deviceId',
-              (_) => PlaceholderPage(title: context.l10n.deviceEditTitle),
+              (id) => BlocProvider(
+                create: (context) => DeviceFormCubit.edit(
+                  context.read<DeviceRepository>(),
+                  deviceId: id,
+                  clock: context.read<AppClock>(),
+                )..load(),
+                child: const DeviceFormPage(),
+              ),
             ),
           ),
           GoRoute(

@@ -276,6 +276,146 @@ class AppLocalizationsTr extends AppLocalizations {
   String get deviceNoMaintenanceYet => 'Henüz bakım yapılmadı';
 
   @override
+  String get unsavedChangesTitle => 'Kaydedilmemiş değişiklikler';
+
+  @override
+  String get unsavedChangesMessage =>
+      'Yaptığınız değişiklikler kaydedilmedi. Çıkarsanız bu değişiklikler kaybolacak.';
+
+  @override
+  String get unsavedChangesDiscard => 'Değişiklikleri At';
+
+  @override
+  String get deviceAdd => 'Cihaz ekle';
+
+  @override
+  String get deviceFieldModel => 'Cihaz modeli';
+
+  @override
+  String get deviceFieldModelHelper => 'Örn. AquaPure RO-5';
+
+  @override
+  String get deviceFieldSerial => 'Seri numarası';
+
+  @override
+  String get deviceFieldInstalledAt => 'Kurulum tarihi';
+
+  @override
+  String get deviceFieldInstalledAtHint => 'Tarih seçmek için dokunun';
+
+  @override
+  String get deviceSaved => 'Cihaz kaydedildi.';
+
+  @override
+  String get deviceUpdated => 'Cihaz bilgileri güncellendi.';
+
+  @override
+  String get deviceSerialMissing => 'Seri numarası belirtilmemiş';
+
+  @override
+  String get deviceSectionInfo => 'Cihaz bilgileri';
+
+  @override
+  String get deviceCustomer => 'Müşteri';
+
+  @override
+  String get deviceCustomerNumber => 'Müşteri numarası';
+
+  @override
+  String get deviceLastMaintenance => 'Son bakım';
+
+  @override
+  String get deviceNextMaintenanceLabel => 'Sonraki bakım';
+
+  @override
+  String get deviceNoRecordValue => 'Kayıt yok';
+
+  @override
+  String deviceOverdueDays(int days) {
+    return '$days gün gecikti';
+  }
+
+  @override
+  String get deviceDueToday => 'Bakım bugün';
+
+  @override
+  String deviceDaysLeft(int days) {
+    return '$days gün kaldı';
+  }
+
+  @override
+  String get deviceNeverServiced => 'Bu cihaz için henüz bakım yapılmadı';
+
+  @override
+  String get deviceDelete => 'Cihazı sil';
+
+  @override
+  String get deviceDeleteTitle => 'Cihaz silinsin mi?';
+
+  @override
+  String deviceDeleteMessageSimple(String model) {
+    return '$model cihazı kalıcı olarak silinecek. Bu işlem geri alınamaz.';
+  }
+
+  @override
+  String deviceDeleteMessageWithHistory(
+    String model,
+    int records,
+    int filters,
+  ) {
+    return '$model cihazı ile birlikte $records bakım kaydı ve $filters filtre değişimi kalıcı olarak silinecek. Bakım geçmişi geri getirilemez.';
+  }
+
+  @override
+  String get deviceDeleted => 'Cihaz silindi.';
+
+  @override
+  String get validationInstalledAtFuture =>
+      'Kurulum tarihi ileri bir tarih olamaz.';
+
+  @override
+  String get maintenanceAdd => 'Yeni bakım ekle';
+
+  @override
+  String get maintenanceHistory => 'Bakım geçmişi';
+
+  @override
+  String get maintenanceHistoryEmptyTitle => 'Henüz bakım kaydı yok';
+
+  @override
+  String get maintenanceHistoryEmptyMessage =>
+      'Bu cihaz için ilk bakımı kaydettiğinizde geçmiş burada görünecek.';
+
+  @override
+  String maintenanceRecordNext(String date) {
+    return 'Sonraki bakım: $date';
+  }
+
+  @override
+  String get maintenanceRecordFilters => 'Değiştirilen filtreler';
+
+  @override
+  String get maintenanceRecordNotes => 'Not';
+
+  @override
+  String get maintenanceRecordPrice => 'Ücret';
+
+  @override
+  String get filterSediment => 'Sediment';
+
+  @override
+  String get filterCto => 'CTO';
+
+  @override
+  String get filterGac => 'GAC';
+
+  @override
+  String get filterPost => 'Post';
+
+  @override
+  String get filterMembrane => 'Membran';
+
+  @override
   String get statusOverdue => 'Gecikti';
 
   @override

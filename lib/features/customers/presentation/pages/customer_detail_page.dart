@@ -171,6 +171,16 @@ class _DetailContent extends StatelessWidget {
             const SizedBox(height: AppSpacing.xl),
             AppSectionHeader(
               '${l10n.customerSectionDevices} (${devices.length})',
+              trailing: TextButton.icon(
+                key: const ValueKey('customerAddDevice'),
+                onPressed: state.isBusy
+                    ? null
+                    : () => unawaited(
+                        context.push(AppRoutes.deviceNew(customer.id)),
+                      ),
+                icon: const Icon(Icons.add),
+                label: Text(l10n.deviceAdd),
+              ),
             ),
             if (devices.isEmpty)
               Card(

@@ -83,6 +83,10 @@ erDiagram
   counts for the confirmation dialog; `deleteCustomer` then deletes filters →
   records → devices → customer in **one transaction**. Any failure rolls back
   everything. Direct deletes of a parent with children fail (`RESTRICT`).
+- **Deleting a device:** `DeviceRepository.getDeletionImpact` returns the
+  maintenance record and filter replacement counts; `deleteDevice` deletes
+  filters → records → device in **one transaction** (schema unchanged,
+  foreign keys stay `RESTRICT`).
 - **Errors:** `database_error_mapper.dart` converts `SqliteException`
   (also when wrapped in `DriftRemoteException` from the background isolate)
   into `ConstraintViolationException` / `DatabaseException` and logs details.

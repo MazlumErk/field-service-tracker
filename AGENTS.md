@@ -102,7 +102,12 @@ docs/                  ARCHITECTURE, DATABASE, DESIGN_SYSTEM, FEATURES, TESTING
 - Widget tests cover loading, empty, error, form validation and navigation.
 - Freeze time with a fake `AppClock` in tests.
 - Never report tests as passing without running them.
-- Before each commit: `dart format .`, `flutter analyze`, `flutter test`.
+- While developing, run the tests of the changed module (plus dependent
+  modules when shared code changes). At the end of a phase run
+  `dart format .`, `flutter analyze` and the full `flutter test` once; a
+  phase with failing tests is not complete. Write few, meaningful tests
+  (rules, data integrity, deletions, key Cubit behaviour, core flows) — no
+  count or coverage targets. Details: `docs/TESTING.md`.
 
 ## 7. Database rules
 

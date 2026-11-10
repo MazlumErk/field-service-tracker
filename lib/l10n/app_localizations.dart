@@ -554,6 +554,252 @@ abstract class AppLocalizations {
   /// **'Henüz bakım yapılmadı'**
   String get deviceNoMaintenanceYet;
 
+  /// No description provided for @unsavedChangesTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kaydedilmemiş değişiklikler'**
+  String get unsavedChangesTitle;
+
+  /// No description provided for @unsavedChangesMessage.
+  ///
+  /// In tr, this message translates to:
+  /// **'Yaptığınız değişiklikler kaydedilmedi. Çıkarsanız bu değişiklikler kaybolacak.'**
+  String get unsavedChangesMessage;
+
+  /// No description provided for @unsavedChangesDiscard.
+  ///
+  /// In tr, this message translates to:
+  /// **'Değişiklikleri At'**
+  String get unsavedChangesDiscard;
+
+  /// No description provided for @deviceAdd.
+  ///
+  /// In tr, this message translates to:
+  /// **'Cihaz ekle'**
+  String get deviceAdd;
+
+  /// No description provided for @deviceFieldModel.
+  ///
+  /// In tr, this message translates to:
+  /// **'Cihaz modeli'**
+  String get deviceFieldModel;
+
+  /// No description provided for @deviceFieldModelHelper.
+  ///
+  /// In tr, this message translates to:
+  /// **'Örn. AquaPure RO-5'**
+  String get deviceFieldModelHelper;
+
+  /// No description provided for @deviceFieldSerial.
+  ///
+  /// In tr, this message translates to:
+  /// **'Seri numarası'**
+  String get deviceFieldSerial;
+
+  /// No description provided for @deviceFieldInstalledAt.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kurulum tarihi'**
+  String get deviceFieldInstalledAt;
+
+  /// No description provided for @deviceFieldInstalledAtHint.
+  ///
+  /// In tr, this message translates to:
+  /// **'Tarih seçmek için dokunun'**
+  String get deviceFieldInstalledAtHint;
+
+  /// No description provided for @deviceSaved.
+  ///
+  /// In tr, this message translates to:
+  /// **'Cihaz kaydedildi.'**
+  String get deviceSaved;
+
+  /// No description provided for @deviceUpdated.
+  ///
+  /// In tr, this message translates to:
+  /// **'Cihaz bilgileri güncellendi.'**
+  String get deviceUpdated;
+
+  /// No description provided for @deviceSerialMissing.
+  ///
+  /// In tr, this message translates to:
+  /// **'Seri numarası belirtilmemiş'**
+  String get deviceSerialMissing;
+
+  /// No description provided for @deviceSectionInfo.
+  ///
+  /// In tr, this message translates to:
+  /// **'Cihaz bilgileri'**
+  String get deviceSectionInfo;
+
+  /// No description provided for @deviceCustomer.
+  ///
+  /// In tr, this message translates to:
+  /// **'Müşteri'**
+  String get deviceCustomer;
+
+  /// No description provided for @deviceCustomerNumber.
+  ///
+  /// In tr, this message translates to:
+  /// **'Müşteri numarası'**
+  String get deviceCustomerNumber;
+
+  /// No description provided for @deviceLastMaintenance.
+  ///
+  /// In tr, this message translates to:
+  /// **'Son bakım'**
+  String get deviceLastMaintenance;
+
+  /// No description provided for @deviceNextMaintenanceLabel.
+  ///
+  /// In tr, this message translates to:
+  /// **'Sonraki bakım'**
+  String get deviceNextMaintenanceLabel;
+
+  /// No description provided for @deviceNoRecordValue.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kayıt yok'**
+  String get deviceNoRecordValue;
+
+  /// No description provided for @deviceOverdueDays.
+  ///
+  /// In tr, this message translates to:
+  /// **'{days} gün gecikti'**
+  String deviceOverdueDays(int days);
+
+  /// No description provided for @deviceDueToday.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bakım bugün'**
+  String get deviceDueToday;
+
+  /// No description provided for @deviceDaysLeft.
+  ///
+  /// In tr, this message translates to:
+  /// **'{days} gün kaldı'**
+  String deviceDaysLeft(int days);
+
+  /// No description provided for @deviceNeverServiced.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bu cihaz için henüz bakım yapılmadı'**
+  String get deviceNeverServiced;
+
+  /// No description provided for @deviceDelete.
+  ///
+  /// In tr, this message translates to:
+  /// **'Cihazı sil'**
+  String get deviceDelete;
+
+  /// No description provided for @deviceDeleteTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Cihaz silinsin mi?'**
+  String get deviceDeleteTitle;
+
+  /// No description provided for @deviceDeleteMessageSimple.
+  ///
+  /// In tr, this message translates to:
+  /// **'{model} cihazı kalıcı olarak silinecek. Bu işlem geri alınamaz.'**
+  String deviceDeleteMessageSimple(String model);
+
+  /// No description provided for @deviceDeleteMessageWithHistory.
+  ///
+  /// In tr, this message translates to:
+  /// **'{model} cihazı ile birlikte {records} bakım kaydı ve {filters} filtre değişimi kalıcı olarak silinecek. Bakım geçmişi geri getirilemez.'**
+  String deviceDeleteMessageWithHistory(String model, int records, int filters);
+
+  /// No description provided for @deviceDeleted.
+  ///
+  /// In tr, this message translates to:
+  /// **'Cihaz silindi.'**
+  String get deviceDeleted;
+
+  /// No description provided for @validationInstalledAtFuture.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kurulum tarihi ileri bir tarih olamaz.'**
+  String get validationInstalledAtFuture;
+
+  /// No description provided for @maintenanceAdd.
+  ///
+  /// In tr, this message translates to:
+  /// **'Yeni bakım ekle'**
+  String get maintenanceAdd;
+
+  /// No description provided for @maintenanceHistory.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bakım geçmişi'**
+  String get maintenanceHistory;
+
+  /// No description provided for @maintenanceHistoryEmptyTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Henüz bakım kaydı yok'**
+  String get maintenanceHistoryEmptyTitle;
+
+  /// No description provided for @maintenanceHistoryEmptyMessage.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bu cihaz için ilk bakımı kaydettiğinizde geçmiş burada görünecek.'**
+  String get maintenanceHistoryEmptyMessage;
+
+  /// No description provided for @maintenanceRecordNext.
+  ///
+  /// In tr, this message translates to:
+  /// **'Sonraki bakım: {date}'**
+  String maintenanceRecordNext(String date);
+
+  /// No description provided for @maintenanceRecordFilters.
+  ///
+  /// In tr, this message translates to:
+  /// **'Değiştirilen filtreler'**
+  String get maintenanceRecordFilters;
+
+  /// No description provided for @maintenanceRecordNotes.
+  ///
+  /// In tr, this message translates to:
+  /// **'Not'**
+  String get maintenanceRecordNotes;
+
+  /// No description provided for @maintenanceRecordPrice.
+  ///
+  /// In tr, this message translates to:
+  /// **'Ücret'**
+  String get maintenanceRecordPrice;
+
+  /// No description provided for @filterSediment.
+  ///
+  /// In tr, this message translates to:
+  /// **'Sediment'**
+  String get filterSediment;
+
+  /// No description provided for @filterCto.
+  ///
+  /// In tr, this message translates to:
+  /// **'CTO'**
+  String get filterCto;
+
+  /// No description provided for @filterGac.
+  ///
+  /// In tr, this message translates to:
+  /// **'GAC'**
+  String get filterGac;
+
+  /// No description provided for @filterPost.
+  ///
+  /// In tr, this message translates to:
+  /// **'Post'**
+  String get filterPost;
+
+  /// No description provided for @filterMembrane.
+  ///
+  /// In tr, this message translates to:
+  /// **'Membran'**
+  String get filterMembrane;
+
   /// No description provided for @statusOverdue.
   ///
   /// In tr, this message translates to:

@@ -30,6 +30,22 @@ final class Device extends Equatable {
   ];
 }
 
+/// What deleting a device would remove (its maintenance history).
+final class DeviceDeletionImpact extends Equatable {
+  const DeviceDeletionImpact({
+    required this.maintenanceRecordCount,
+    required this.filterReplacementCount,
+  });
+
+  final int maintenanceRecordCount;
+  final int filterReplacementCount;
+
+  bool get hasMaintenanceHistory => maintenanceRecordCount > 0;
+
+  @override
+  List<Object?> get props => [maintenanceRecordCount, filterReplacementCount];
+}
+
 /// Raw user input for creating or updating a device.
 final class DeviceDraft extends Equatable {
   const DeviceDraft({

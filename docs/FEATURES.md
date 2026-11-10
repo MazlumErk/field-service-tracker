@@ -8,7 +8,7 @@ Legend: ✅ done · 🚧 in progress · ⏳ planned (phase)
 | 2 | Settings: about, version, licenses | ✅ Phase 1 |
 | 3 | Local database, domain rules, repositories, demo seed, demo reset service | ✅ Phase 2 (reset button: Phase 3+) |
 | 4 | Customers: list, search, detail, create/edit/delete | ✅ Phase 3 |
-| 5 | Devices: detail, create/edit, customer relation | ⏳ Phase 4 |
+| 5 | Devices: detail with history, create/edit, safe delete, customer relation | ✅ Phase 4 |
 | 6 | Maintenance: form, filters, history, status | ⏳ Phase 5 |
 | 7 | Dashboard: statistics, priority list | ⏳ Phase 6 |
 | 8 | Maintenance overview with filters | ⏳ Phase 5–6 |
@@ -91,5 +91,30 @@ messages are drafts for Phases 4–5.
 - [x] No overflow at 2× text on a 320 × 568 screen.
 - [x] Verified on the Android emulator (see `docs/TESTING.md`).
 
-Out of scope (Phase 4): adding / editing devices from the customer detail page.
+Adding devices from the customer detail page was delivered in Phase 4.
+
+## Phase 4 — Device management
+
+### Screens and flows
+
+| Screen | Behaviour |
+|---|---|
+| Müşteri Detayı | "Cihaz ekle" action next to the device section header |
+| Yeni Cihaz (`/customers/:id/devices/new`) | Model (required), serial number (optional), installation date (Turkish date picker, defaults to today, no future dates); on success replaced by the new device's detail page |
+| Cihaz Detayı (`/devices/:id`) | Model, serial number, installation date, owner (tappable) and customer number, last / next maintenance, status badge + "n gün gecikti / n gün kaldı / Bakım bugün", read-only history newest first (date, next date, filters, price, notes), empty state without records, "Yeni bakım ekle" → `/devices/:id/maintenance/new` (form in Phase 5) |
+| Cihazı Düzenle (`/devices/:id/edit`) | Same form prefilled; the owning customer cannot change; on success pops back, detail updates through its stream |
+| Delete (detail menu) | Dialog states how many maintenance records and filter replacements are permanently deleted; cancel changes nothing; confirm deletes filters → records → device in one transaction and returns to the customer |
+| All forms | Unsaved-changes dialog ("Vazgeç" / "Değişiklikleri At") on app bar back and Android back; no dialog without changes or after saving |
+
+### Acceptance criteria
+
+- [x] Device created for the right customer; validation of model, serial length and installation date.
+- [x] Save disabled while saving; repeated submits ignored.
+- [x] Customer detail and customer list device counts update reactively after create / delete.
+- [x] Device detail with status from `MaintenanceStatusCalculator`, history newest first, empty state.
+- [x] Edit keeps the owner; detail updates after saving.
+- [x] Delete with impact preview, transactional cascade, rollback on failure, `RESTRICT` foreign keys kept.
+- [x] Unsaved-changes guard on customer and device forms (both back paths).
+- [x] No overflow at 2× text on a 320 × 568 screen.
+- [x] Verified on the Android emulator; real screenshots in `docs/images/`.
 

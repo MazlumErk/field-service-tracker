@@ -3,12 +3,10 @@
 **Offline-first field service and maintenance management application built
 with Flutter, BLoC and SQLite.**
 
-> 🚧 **Work in progress — Phase 3 of 9 (customer management).**
-> The app shell, design system, SQLite database, business rules and the
-> complete customer management module are in place and tested. Device,
-> maintenance and dashboard screens are being built; see the
-> [roadmap](#roadmap).
-> Screenshots and a demo video will be added once real screens exist.
+> 🚧 **Work in progress — Phase 4 of 9 (device management).**
+> Customer and device management, the read-only maintenance history and the
+> underlying SQLite database are in place and tested. Recording maintenance
+> visits and the dashboard are being built; see the [roadmap](#roadmap).
 
 ## Project Overview
 
@@ -28,13 +26,25 @@ offline, with all data stored on the device. The UI is in Turkish.
 | Maintenance status rules (overdue / upcoming / scheduled) | ✅ (logic, UI ⏳) |
 | Customers: live Turkish-aware search, create, edit, safe delete with impact preview | ✅ |
 | Customer detail with devices and maintenance status | ✅ |
-| Devices and maintenance history | ⏳ |
+| Devices: add, edit, safe delete (with maintenance history impact) | ✅ |
+| Device detail: status, days until/over due, read-only maintenance history | ✅ |
+| Unsaved-changes protection on all forms | ✅ |
 | Maintenance records with filter replacements and pricing | ⏳ |
 | Overdue / upcoming maintenance tracking and dashboard | ⏳ |
 
 ## Screenshots
 
-_Coming with the feature phases — only real app screenshots will be used._
+Real screenshots from the Android emulator (Phase 4 build, demo data):
+
+| Customer detail | Device detail | Maintenance history |
+|---|---|---|
+| ![Customer detail](docs/images/customer_detail.png) | ![Device detail](docs/images/device_detail.png) | ![Maintenance history](docs/images/device_maintenance_history.png) |
+
+| New device (Turkish date picker) | Delete confirmation | Unsaved changes |
+|---|---|---|
+| ![Date picker](docs/images/device_form_date_picker.png) | ![Delete device](docs/images/device_delete_dialog.png) | ![Unsaved changes](docs/images/unsaved_changes_dialog.png) |
+
+More in [`docs/images/`](docs/images/).
 
 ## Demo Video
 
@@ -108,7 +118,7 @@ See [docs/DESIGN_SYSTEM.md](docs/DESIGN_SYSTEM.md).
 1. ✅ Project foundation — theme, routing, DI, docs
 2. ✅ Database & domain — Drift schema, DAOs, repositories, rules, seed
 3. ✅ Customers — list, search, form, detail, safe delete
-4. ⏳ Devices
+4. ✅ Devices — add, edit, detail with history, safe delete
 5. ⏳ Maintenance
 6. ⏳ Dashboard
 7. ⏳ UX refinement

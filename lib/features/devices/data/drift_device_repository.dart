@@ -64,6 +64,25 @@ final class DriftDeviceRepository implements DeviceRepository {
         return (await _database.devicesDao.findById(id))!.toDomain();
       });
 
+  @override
+  Future<DeviceDeletionImpact> getDeletionImpact(int id) =>
+      guardDatabase(() async {
+        if (await _database.devicesDao.findById(id) == null) {
+          throw NotFoundException(_entity, id);
+        }
+        final counts = await _database.devicesDao.relatedCounts(id);
+        return DeviceDeletionImpact(
+          maintenanceRecordCount: counts.maintenanceRecords,
+          filterReplacementCount: counts.filterReplacements,
+        );
+      });
+
+  @override
+  Future<void> deleteDevice(int id) => guardDatabase(() async {
+    final deleted = await _database.devicesDao.deleteWithRelatedRecords(id);
+    if (!deleted) throw NotFoundException(_entity, id);
+  });
+
   DeviceDraft _validated(DeviceDraft draft) {
     final result = DeviceValidator.validate(
       draft,
