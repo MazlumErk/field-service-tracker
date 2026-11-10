@@ -3,10 +3,11 @@
 **Offline-first field service and maintenance management application built
 with Flutter, BLoC and SQLite.**
 
-> 🚧 **Work in progress — Phase 4 of 9 (device management).**
-> Customer and device management, the read-only maintenance history and the
-> underlying SQLite database are in place and tested. Recording maintenance
-> visits and the dashboard are being built; see the [roadmap](#roadmap).
+> 🚧 **Work in progress — Phase 5 of 9 (maintenance & filters).**
+> Customers, devices and recording maintenance visits (filters, price,
+> notes, next date) work end to end on a tested SQLite database. The
+> dashboard and the maintenance overview are being built; see the
+> [roadmap](#roadmap).
 
 ## Project Overview
 
@@ -29,7 +30,7 @@ offline, with all data stored on the device. The UI is in Turkish.
 | Devices: add, edit, safe delete (with maintenance history impact) | ✅ |
 | Device detail: status, days until/over due, read-only maintenance history | ✅ |
 | Unsaved-changes protection on all forms | ✅ |
-| Maintenance records with filter replacements and pricing | ⏳ |
+| Maintenance records: dates (6-month suggestion), filter replacements, Turkish lira price, notes | ✅ |
 | Overdue / upcoming maintenance tracking and dashboard | ⏳ |
 
 ## Screenshots
@@ -43,6 +44,10 @@ Real screenshots from the Android emulator (Phase 4 build, demo data):
 | New device (Turkish date picker) | Delete confirmation | Unsaved changes |
 |---|---|---|
 | ![Date picker](docs/images/device_form_date_picker.png) | ![Delete device](docs/images/device_delete_dialog.png) | ![Unsaved changes](docs/images/unsaved_changes_dialog.png) |
+
+| New maintenance | Filter selection & price | History after saving |
+|---|---|---|
+| ![Maintenance form](docs/images/maintenance_form.png) | ![Filter selection](docs/images/maintenance_filter_selection.png) | ![Updated history](docs/images/maintenance_history_updated.png) |
 
 More in [`docs/images/`](docs/images/).
 
@@ -119,7 +124,7 @@ See [docs/DESIGN_SYSTEM.md](docs/DESIGN_SYSTEM.md).
 2. ✅ Database & domain — Drift schema, DAOs, repositories, rules, seed
 3. ✅ Customers — list, search, form, detail, safe delete
 4. ✅ Devices — add, edit, detail with history, safe delete
-5. ⏳ Maintenance
+5. ✅ Maintenance — record visits with filters, price, notes and next date
 6. ⏳ Dashboard
 7. ⏳ UX refinement
 8. ⏳ Quality assurance & CI

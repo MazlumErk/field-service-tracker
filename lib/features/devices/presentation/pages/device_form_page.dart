@@ -5,8 +5,8 @@ import 'package:field_service_tracker/app/theme/app_spacing.dart';
 import 'package:field_service_tracker/core/errors/app_exception.dart';
 import 'package:field_service_tracker/core/errors/app_exception_messages.dart';
 import 'package:field_service_tracker/core/extensions/context_extensions.dart';
-import 'package:field_service_tracker/core/extensions/date_format_extensions.dart';
 import 'package:field_service_tracker/core/utils/calendar_date.dart';
+import 'package:field_service_tracker/core/widgets/app_date_field.dart';
 import 'package:field_service_tracker/core/widgets/app_message_state.dart';
 import 'package:field_service_tracker/core/widgets/app_scaffold.dart';
 import 'package:field_service_tracker/core/widgets/unsaved_changes_guard.dart';
@@ -76,25 +76,6 @@ class _DeviceFormPageState extends State<DeviceFormPage> {
     _initialInstalledAt = device.installedAt;
     _modelController.text = _initialModel;
     _serialController.text = _initialSerial;
-  }
-
-  Future<void> _pickDate(DeviceFormState state) async {
-    FocusScope.of(context).unfocus();
-    final cubit = context.read<DeviceFormCubit>();
-    DateTime asDateTime(CalendarDate d) => DateTime(d.year, d.month, d.day);
-    final picked = await showDatePicker(
-      context: context,
-      initialDate: asDateTime(state.installedAt),
-      firstDate: DateTime(2000),
-      lastDate: asDateTime(state.today),
-      helpText: context.l10n.deviceFieldInstalledAt,
-    );
-    // The dialog restores focus to the last text field when it closes,
-    // which would reopen the keyboard; keep the form unfocused instead.
-    FocusManager.instance.primaryFocus?.unfocus();
-    if (picked != null) {
-      cubit.installedAtChanged(CalendarDate.fromDateTime(picked));
-    }
   }
 
   void _submit() {
@@ -227,13 +208,16 @@ class _DeviceFormPageState extends State<DeviceFormPage> {
           ),
         ),
         const SizedBox(height: AppSpacing.lg),
-        _DateField(
+        AppDateField(
           key: const ValueKey('deviceField-installedAt'),
           label: l10n.deviceFieldInstalledAt,
-          hint: l10n.deviceFieldInstalledAtHint,
-          value: context.formatDate(state.installedAt),
+          helperText: l10n.deviceFieldInstalledAtHint,
+          value: state.installedAt,
+          firstDate: CalendarDate(2000, 1, 1),
+          lastDate: state.today,
           errorText: errorFor(DeviceField.installedAt),
-          onTap: enabled ? () => unawaited(_pickDate(state)) : null,
+          enabled: enabled,
+          onChanged: cubit.installedAtChanged,
         ),
         const SizedBox(height: AppSpacing.xl),
         FilledButton.icon(
@@ -248,49 +232,6 @@ class _DeviceFormPageState extends State<DeviceFormPage> {
           label: Text(l10n.commonSave),
         ),
       ],
-    );
-  }
-}
-
-/// Read-only field that opens the Material (Turkish) date picker.
-class _DateField extends StatelessWidget {
-  const _DateField({
-    required this.label,
-    required this.hint,
-    required this.value,
-    required this.onTap,
-    this.errorText,
-    super.key,
-  });
-
-  final String label;
-  final String hint;
-  final String value;
-  final String? errorText;
-  final VoidCallback? onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return Semantics(
-      button: true,
-      label: '$label: $value. $hint',
-      excludeSemantics: true,
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: AppRadius.cardRadius,
-        child: InputDecorator(
-          isEmpty: false,
-          decoration: InputDecoration(
-            labelText: label,
-            helperText: hint,
-            errorText: errorText,
-            errorMaxLines: 2,
-            enabled: onTap != null,
-            suffixIcon: const Icon(Icons.calendar_today_outlined),
-          ),
-          child: Text(value, style: context.textTheme.bodyLarge),
-        ),
-      ),
     );
   }
 }

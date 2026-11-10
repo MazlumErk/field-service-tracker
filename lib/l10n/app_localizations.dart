@@ -770,6 +770,114 @@ abstract class AppLocalizations {
   /// **'Ücret'**
   String get maintenanceRecordPrice;
 
+  /// No description provided for @maintenanceFieldDate.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bakım tarihi'**
+  String get maintenanceFieldDate;
+
+  /// No description provided for @maintenanceFieldNextDate.
+  ///
+  /// In tr, this message translates to:
+  /// **'Sonraki bakım tarihi'**
+  String get maintenanceFieldNextDate;
+
+  /// No description provided for @maintenanceFieldNextDateSuggested.
+  ///
+  /// In tr, this message translates to:
+  /// **'Önerilen: bakım tarihinden 6 ay sonra'**
+  String get maintenanceFieldNextDateSuggested;
+
+  /// No description provided for @maintenanceFieldNextDateCustom.
+  ///
+  /// In tr, this message translates to:
+  /// **'Elle seçildi'**
+  String get maintenanceFieldNextDateCustom;
+
+  /// No description provided for @maintenanceUseSuggestion.
+  ///
+  /// In tr, this message translates to:
+  /// **'6 ay sonrasını kullan'**
+  String get maintenanceUseSuggestion;
+
+  /// No description provided for @maintenanceFieldFilters.
+  ///
+  /// In tr, this message translates to:
+  /// **'Değiştirilen filtreler'**
+  String get maintenanceFieldFilters;
+
+  /// No description provided for @maintenanceFieldFiltersHelper.
+  ///
+  /// In tr, this message translates to:
+  /// **'Değiştirilen tüm filtreleri işaretleyin.'**
+  String get maintenanceFieldFiltersHelper;
+
+  /// No description provided for @maintenanceFieldPrice.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bakım ücreti'**
+  String get maintenanceFieldPrice;
+
+  /// No description provided for @maintenanceFieldPriceHelper.
+  ///
+  /// In tr, this message translates to:
+  /// **'Örn. 1250 veya 1.250,50 (kuruş için virgül)'**
+  String get maintenanceFieldPriceHelper;
+
+  /// No description provided for @maintenanceFieldNotes.
+  ///
+  /// In tr, this message translates to:
+  /// **'Notlar'**
+  String get maintenanceFieldNotes;
+
+  /// No description provided for @maintenanceSaved.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bakım kaydedildi.'**
+  String get maintenanceSaved;
+
+  /// No description provided for @maintenanceDeviceHeader.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bakım yapılan cihaz'**
+  String get maintenanceDeviceHeader;
+
+  /// No description provided for @validationMaintenanceDateFuture.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bakım tarihi ileri bir tarih olamaz.'**
+  String get validationMaintenanceDateFuture;
+
+  /// No description provided for @validationNextBeforeMaintenance.
+  ///
+  /// In tr, this message translates to:
+  /// **'Sonraki bakım tarihi bakım tarihinden önce olamaz.'**
+  String get validationNextBeforeMaintenance;
+
+  /// No description provided for @validationFiltersEmpty.
+  ///
+  /// In tr, this message translates to:
+  /// **'En az bir filtre seçin.'**
+  String get validationFiltersEmpty;
+
+  /// No description provided for @validationPriceFormat.
+  ///
+  /// In tr, this message translates to:
+  /// **'Geçerli bir tutar girin (örn. 1.250,50).'**
+  String get validationPriceFormat;
+
+  /// No description provided for @validationPriceTooLarge.
+  ///
+  /// In tr, this message translates to:
+  /// **'Tutar en fazla ₺1.000.000,00 olabilir.'**
+  String get validationPriceTooLarge;
+
+  /// No description provided for @validationPriceNegative.
+  ///
+  /// In tr, this message translates to:
+  /// **'Tutar negatif olamaz.'**
+  String get validationPriceNegative;
+
   /// No description provided for @filterSediment.
   ///
   /// In tr, this message translates to:
@@ -779,19 +887,19 @@ abstract class AppLocalizations {
   /// No description provided for @filterCto.
   ///
   /// In tr, this message translates to:
-  /// **'CTO'**
+  /// **'CTO Karbon'**
   String get filterCto;
 
   /// No description provided for @filterGac.
   ///
   /// In tr, this message translates to:
-  /// **'GAC'**
+  /// **'GAC Karbon'**
   String get filterGac;
 
   /// No description provided for @filterPost.
   ///
   /// In tr, this message translates to:
-  /// **'Post'**
+  /// **'Post Mineral'**
   String get filterPost;
 
   /// No description provided for @filterMembrane.

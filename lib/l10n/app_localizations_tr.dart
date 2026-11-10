@@ -401,16 +401,77 @@ class AppLocalizationsTr extends AppLocalizations {
   String get maintenanceRecordPrice => 'Ücret';
 
   @override
+  String get maintenanceFieldDate => 'Bakım tarihi';
+
+  @override
+  String get maintenanceFieldNextDate => 'Sonraki bakım tarihi';
+
+  @override
+  String get maintenanceFieldNextDateSuggested =>
+      'Önerilen: bakım tarihinden 6 ay sonra';
+
+  @override
+  String get maintenanceFieldNextDateCustom => 'Elle seçildi';
+
+  @override
+  String get maintenanceUseSuggestion => '6 ay sonrasını kullan';
+
+  @override
+  String get maintenanceFieldFilters => 'Değiştirilen filtreler';
+
+  @override
+  String get maintenanceFieldFiltersHelper =>
+      'Değiştirilen tüm filtreleri işaretleyin.';
+
+  @override
+  String get maintenanceFieldPrice => 'Bakım ücreti';
+
+  @override
+  String get maintenanceFieldPriceHelper =>
+      'Örn. 1250 veya 1.250,50 (kuruş için virgül)';
+
+  @override
+  String get maintenanceFieldNotes => 'Notlar';
+
+  @override
+  String get maintenanceSaved => 'Bakım kaydedildi.';
+
+  @override
+  String get maintenanceDeviceHeader => 'Bakım yapılan cihaz';
+
+  @override
+  String get validationMaintenanceDateFuture =>
+      'Bakım tarihi ileri bir tarih olamaz.';
+
+  @override
+  String get validationNextBeforeMaintenance =>
+      'Sonraki bakım tarihi bakım tarihinden önce olamaz.';
+
+  @override
+  String get validationFiltersEmpty => 'En az bir filtre seçin.';
+
+  @override
+  String get validationPriceFormat =>
+      'Geçerli bir tutar girin (örn. 1.250,50).';
+
+  @override
+  String get validationPriceTooLarge =>
+      'Tutar en fazla ₺1.000.000,00 olabilir.';
+
+  @override
+  String get validationPriceNegative => 'Tutar negatif olamaz.';
+
+  @override
   String get filterSediment => 'Sediment';
 
   @override
-  String get filterCto => 'CTO';
+  String get filterCto => 'CTO Karbon';
 
   @override
-  String get filterGac => 'GAC';
+  String get filterGac => 'GAC Karbon';
 
   @override
-  String get filterPost => 'Post';
+  String get filterPost => 'Post Mineral';
 
   @override
   String get filterMembrane => 'Membran';

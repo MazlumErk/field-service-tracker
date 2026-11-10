@@ -79,6 +79,9 @@ erDiagram
   id DESC` — deterministic on ties (same day → saved later wins → higher id).
 - **Maintenance records are immutable** in v1; at least one filter per record
   (domain rule). Record + filters are inserted in one transaction.
+- **Filter values:** stored as `FilterType` names (`sediment`, `cto`, `gac`,
+  `post`, `membrane`); Turkish display names ("CTO Karbon", "Post
+  Mineral", …) live only in the localization files.
 - **Deleting a customer:** `getDeletionImpact` returns the device / record
   counts for the confirmation dialog; `deleteCustomer` then deletes filters →
   records → devices → customer in **one transaction**. Any failure rolls back

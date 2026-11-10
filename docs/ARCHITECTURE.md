@@ -1,8 +1,8 @@
 # Architecture
 
-> Status: **Phase 4** — app shell, theme, routing, database, domain rules,
-> repositories, customer and device management are implemented. The
-> maintenance form, maintenance list and dashboard are planned.
+> Status: **Phase 5** — app shell, theme, routing, database, domain rules,
+> repositories, customer, device and maintenance-record management are
+> implemented. The maintenance overview list and dashboard are planned.
 > Rules are defined in [AGENTS.md](../AGENTS.md); this document explains them.
 
 ## Layers and data flow
@@ -45,6 +45,7 @@ types, so state subclasses with equal props would be equal).
 | `CustomerFormCubit` | Create / edit (`.create` / `.edit`); domain validation before saving; maps `DuplicateCustomerNumberException` to an inline field error; ignores submits unless in `editing` | `getCustomer`, `createCustomer`, `updateCustomer` |
 | `DeviceDetailCubit` | Combines device-overview and history streams; status and days until next maintenance; delete flow `idle → loadingImpact → confirming → deleting → deleted` | `watchDeviceOverview`, `watchHistory`, `getDeletionImpact`, `deleteDevice` |
 | `DeviceFormCubit` | Create (bound to a customer id) / edit (owner never sent); installation date held in state (date picker); domain validation; double-submit guard | `getDevice`, `createDevice`, `updateDevice` |
+| `MaintenanceFormCubit` | Defaults (today, +6 months), date changes with suggestion tracking (`nextDateCustomized`), filter toggling (`Set`), price parsing, domain validation, double-submit guard | `watchDeviceOverview` (header, first value), `createRecord` |
 
 Forms wrap their page in `UnsavedChangesGuard` (`PopScope`), so the app bar
 back button and the Android back button share one code path.

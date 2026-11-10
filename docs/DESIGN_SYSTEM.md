@@ -70,6 +70,8 @@ Text scales with the system font size; layouts must not overflow at 1.3×–2×.
 | `UnsavedChangesGuard` | ✅ Phase 4 | `PopScope` + destructive confirmation ("Değişiklikleri At"); unfocuses after "Vazgeç" so one back press is enough |
 | `DeviceSummaryCard` | ✅ Phase 4 | Status block (badge + plain-language days), dates, tappable owner |
 | `MaintenanceRecordCard` | ✅ Phase 4 | Date, price, next date, filter chips, notes |
+| `AppDateField` | ✅ Phase 5 | Read-only field + Turkish date picker; clamps the initial date into range; unfocuses afterwards (no keyboard pop-up). Used by device and maintenance forms |
+| Filter selection | ✅ Phase 5 | Card with one `CheckboxListTile` per filter (48 dp rows); error outline + message when none is selected |
 | `AppMetricCard` | planned | Dashboard phase |
 
 ## Dates

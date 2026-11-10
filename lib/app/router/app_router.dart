@@ -17,6 +17,8 @@ import 'package:field_service_tracker/features/devices/presentation/cubit/device
 import 'package:field_service_tracker/features/devices/presentation/pages/device_detail_page.dart';
 import 'package:field_service_tracker/features/devices/presentation/pages/device_form_page.dart';
 import 'package:field_service_tracker/features/maintenance/domain/maintenance_repository.dart';
+import 'package:field_service_tracker/features/maintenance/presentation/cubit/maintenance_form_cubit.dart';
+import 'package:field_service_tracker/features/maintenance/presentation/pages/maintenance_form_page.dart';
 import 'package:field_service_tracker/features/settings/presentation/pages/settings_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -189,7 +191,14 @@ GoRouter createAppRouter({String initialLocation = AppRoutes.dashboard}) {
             builder: (context, state) => _withId(
               state,
               'deviceId',
-              (_) => PlaceholderPage(title: context.l10n.maintenanceNewTitle),
+              (id) => BlocProvider(
+                create: (context) => MaintenanceFormCubit(
+                  deviceId: id,
+                  repository: context.read<MaintenanceRepository>(),
+                  clock: context.read<AppClock>(),
+                )..load(),
+                child: const MaintenanceFormPage(),
+              ),
             ),
           ),
         ],

@@ -57,7 +57,7 @@ dart run drift_dev schema generate drift_schemas/app_database/ test/database/gen
 Rollback tests create a temporary SQLite trigger that `RAISE(ABORT)`s in the
 middle of a transaction and assert that no partial data remains.
 
-## Current suites (Phase 4)
+## Current suites (Phase 5)
 
 | File | Covers |
 |---|---|
@@ -74,6 +74,8 @@ middle of a transaction and assert that no partial data remains.
 | `test/features/devices/data/drift_device_repository_test.dart` | Owner never changes on update, deletion impact, transactional delete, rollback, stream reactions |
 | `test/features/devices/presentation/cubit/*_cubit_test.dart` | Form (customer binding, optional serial, validation, date, double submit, edit), detail (status per offset, history order, not found, delete flow, cleanup) |
 | `test/features/devices/presentation/device_flows_test.dart` | Seeded flows: add → detail → customer list update, Turkish date picker, history order and content, all statuses, edit, delete cancel / confirm with database checks, back button, 2× text |
+| `test/features/maintenance/presentation/cubit/maintenance_form_cubit_test.dart` | Defaults incl. month-end clamping, suggestion follow / no overwrite / reset, filters ≥ 1 and no duplicates, price errors, saved kuruş / filters / notes, double submit, storage failure, unknown device |
+| `test/features/maintenance/presentation/maintenance_flows_test.dart` | Seeded flow: device → form → save → history first and status updated; Turkish validation errors; unsaved-changes guard; 2× text |
 | `test/core/widgets/unsaved_changes_test.dart` | Guard on customer and device forms: no-change exit, cancel, discard via Android back, revert = no change, no dialog after save, create forms |
 | `test/app/**`, `test/features/settings/**` | Phase 1 app shell, routing, theme, settings |
 
@@ -115,3 +117,24 @@ Emulator `Medium_Phone_API_37.0`, fresh install with demo data. Screenshots:
 Found and fixed: after closing the date picker or the unsaved-changes dialog
 focus returned to the last text field and reopened the keyboard (the next
 Android back press then only closed the keyboard).
+
+## Manual Android verification (Phase 5)
+
+Fresh install, emulator date 10 Nov 2026. Screenshots: `maintenance_form.png`,
+`maintenance_validation_errors.png`, `maintenance_filter_selection.png`,
+`maintenance_history_updated.png` in `docs/images/`.
+
+1. Fatma Şahin → AquaPure RO-5 ("Gecikti") → Yeni bakım ekle: header, dates
+   10 Kas 2026 / 10 May 2027 → Sediment, CTO Karbon, Membran, ₺ 1.250,50,
+   note → Kaydet.
+2. Device detail: "Planlandı · 181 gün kaldı", last / next dates updated, the
+   new record first in the history. Pulled database: `price_kurus = 125050`,
+   filter rows `cto, membrane, sediment`, no FK violations.
+3. Untouched form → back without dialog; filter selected → app bar back →
+   dialog → Vazgeç stays → Android back → dialog → Değişiklikleri At →
+   history unchanged.
+4. No filter + price "12,345" → "En az bir filtre seçin." and
+   "Geçerli bir tutar girin (örn. 1.250,50)."
+
+Transaction rollback of record + filters is covered by
+`drift_maintenance_repository_test.dart` (Phase 2) and was not duplicated.

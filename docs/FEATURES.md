@@ -9,7 +9,7 @@ Legend: ✅ done · 🚧 in progress · ⏳ planned (phase)
 | 3 | Local database, domain rules, repositories, demo seed, demo reset service | ✅ Phase 2 (reset button: Phase 3+) |
 | 4 | Customers: list, search, detail, create/edit/delete | ✅ Phase 3 |
 | 5 | Devices: detail with history, create/edit, safe delete, customer relation | ✅ Phase 4 |
-| 6 | Maintenance: form, filters, history, status | ⏳ Phase 5 |
+| 6 | Maintenance: form, filters, history, status | ✅ Phase 5 |
 | 7 | Dashboard: statistics, priority list | ⏳ Phase 6 |
 | 8 | Maintenance overview with filters | ⏳ Phase 5–6 |
 
@@ -30,8 +30,8 @@ month is shorter, the day is clamped to the month's last day
 
 ## Validation
 
-Customer messages are implemented (Phase 3); device and maintenance
-messages are drafts for Phases 4–5.
+All messages below are implemented (customers: Phase 3, devices: Phase 4,
+maintenance: Phase 5).
 
 | Field | Rule | Message (TR) |
 |---|---|---|
@@ -40,11 +40,12 @@ messages are drafts for Phases 4–5.
 | Address | optional, max 250 | "En fazla 250 karakter girebilirsiniz." |
 | Device model | required | "Model zorunludur" |
 | Phone | optional; digits, spaces, `+ ( ) -`, 10–15 digits | "Geçerli bir telefon numarası girin (10–15 rakam)." |
-| Price | 0 … 1.000.000 TL, Turkish format (`1.250,50`), stored as kuruş | "Geçerli bir ücret girin" |
-| Maintenance date | not in the future | "Bakım tarihi ileri bir tarih olamaz" |
-| Device installation date | not in the future | "Kurulum tarihi ileri bir tarih olamaz" |
-| Next maintenance date | ≥ maintenance date | "Sonraki bakım tarihi bakım tarihinden önce olamaz" |
-| Filters | at least one | "En az bir filtre seçin" |
+| Price | required; 0 … 1.000.000 TL; `1250`, `1250,50`, `1.250,50` (comma = decimals, dots only as thousands groups); stored as integer kuruş | "Bu alan zorunludur." / "Geçerli bir tutar girin (örn. 1.250,50)." / "Tutar en fazla ₺1.000.000,00 olabilir." |
+| Maintenance date | defaults to today, not in the future | "Bakım tarihi ileri bir tarih olamaz." |
+| Device installation date | not in the future | "Kurulum tarihi ileri bir tarih olamaz." |
+| Next maintenance date | ≥ maintenance date; defaults to maintenance date + 6 calendar months | "Sonraki bakım tarihi bakım tarihinden önce olamaz." |
+| Filters | at least one; each at most once | "En az bir filtre seçin." |
+| Notes | optional, max 500; blank is stored as `NULL` | "En fazla 500 karakter girebilirsiniz." |
 
 ## Phase 1 acceptance criteria
 
@@ -117,4 +118,40 @@ Adding devices from the customer detail page was delivered in Phase 4.
 - [x] Unsaved-changes guard on customer and device forms (both back paths).
 - [x] No overflow at 2× text on a 320 × 568 screen.
 - [x] Verified on the Android emulator; real screenshots in `docs/images/`.
+
+## Phase 5 — Maintenance & filter management
+
+### Flow
+
+Cihaz Detayı → "Yeni bakım ekle" → `/devices/:id/maintenance/new` →
+Kaydet → back on the device detail, whose history, last / next dates and
+status update through their streams.
+
+### Form
+
+| Field | Behaviour |
+|---|---|
+| Header | Device model, customer name and number |
+| Bakım tarihi | Defaults to today (`AppClock`); Turkish date picker up to today |
+| Sonraki bakım tarihi | Suggested as maintenance date + 6 calendar months (`MaintenanceSchedule`, month-end clamped: 31 Aug → 28/29 Feb, 31 Mar → 30 Sep). Follows the maintenance date until the user picks it; a manual choice is never overwritten ("6 ay sonrasını kullan" restores the suggestion). The picker starts at the maintenance date. |
+| Değiştirilen filtreler | Checkbox rows: Sediment, CTO Karbon, GAC Karbon, Post Mineral, Membran (stored as `FilterType` names: `sediment`, `cto`, `gac`, `post`, `membrane`); at least one |
+| Bakım ücreti | `MaintenancePrice.parseToKurus` → integer kuruş; shown with `formatKurus` |
+| Notlar | Optional multi-line, max 500, blank → `NULL` |
+
+Saving validates with `MaintenanceValidator`, shows a progress state,
+ignores repeated submits and calls `MaintenanceRepository.createRecord`,
+which inserts the record and its filter rows in **one transaction**
+(rollback covered by Phase 2 tests). Records are immutable in v1: no edit or
+delete. The unsaved-changes guard protects the form.
+
+### Acceptance criteria
+
+- [x] Form bound to the device with header, defaults and Turkish pickers.
+- [x] 6-month suggestion re-applied on date change unless customised.
+- [x] Multi-select filters (≥ 1, no duplicates), Turkish display names.
+- [x] Turkish lira parsing into kuruş; invalid / too large amounts rejected inline.
+- [x] Transactional save, progress state, double-submit guard, Turkish errors.
+- [x] Device detail shows the new record first; last / next dates and status update.
+- [x] Unsaved-changes dialog on both back paths; none after saving.
+- [x] Verified on the Android emulator; screenshots in `docs/images/`.
 
