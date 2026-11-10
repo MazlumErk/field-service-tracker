@@ -1,8 +1,8 @@
 # Architecture
 
-> Status: **Phase 2** — app shell, theme, routing, dependency wiring, the
-> database, domain rules and repositories are implemented. Screens are
-> planned (marked *planned*).
+> Status: **Phase 3** — app shell, theme, routing, database, domain rules,
+> repositories and the customer management screens are implemented.
+> Device, maintenance and dashboard screens are planned.
 > Rules are defined in [AGENTS.md](../AGENTS.md); this document explains them.
 
 ## Layers and data flow
@@ -30,6 +30,25 @@ flowchart TD
 - **Stream lifetime:** Drift watch streams are lazy; they stop when the last
   listener cancels (Cubits cancel in `close()`). `AppDependencies.dispose()`
   closes the database when the root widget is disposed.
+
+## Cubits (presentation logic)
+
+All Cubits depend only on domain repository interfaces (plus `AppClock`),
+are created per route with `BlocProvider`, and use a **single immutable
+state class with a status enum** (equatable 3 does not compare runtime
+types, so state subclasses with equal props would be equal).
+
+| Cubit | Responsibility | Repository calls |
+|---|---|---|
+| `CustomerListCubit` | Live list + debounced search (250 ms); one subscription at a time, the previous query stream is cancelled; `resultsQuery` keeps counts and empty states consistent while debouncing | `watchCustomers(query)` |
+| `CustomerDetailCubit` | Combines customer + device-overview streams; delete flow `idle → loadingImpact → confirming → deleting → deleted` | `watchCustomer`, `watchCustomerOverview`, `getDeletionImpact`, `deleteCustomer` |
+| `CustomerFormCubit` | Create / edit (`.create` / `.edit`); domain validation before saving; maps `DuplicateCustomerNumberException` to an inline field error; ignores submits unless in `editing` | `getCustomer`, `createCustomer`, `updateCustomer` |
+
+Every Cubit cancels its stream subscriptions (and timers) in `close()`;
+unit tests assert this with `StreamController.hasListener`.
+
+UI-side error text comes from `AppException.userMessage(l10n)`; raw
+exception text is never shown.
 
 ## Domain building blocks
 

@@ -60,3 +60,19 @@ enum ConstraintKind { foreignKey, check, notNull, unique }
 final class DatabaseException extends AppException {
   const DatabaseException(super.message, {super.cause, super.stackTrace});
 }
+
+/// A programming error or other failure that is not a storage problem.
+final class UnexpectedException extends AppException {
+  const UnexpectedException(super.message, {super.cause, super.stackTrace});
+}
+
+/// Returns [error] if it already is an [AppException], otherwise wraps it in
+/// an [UnexpectedException]. Used by Cubits as the last line of defence.
+AppException toAppException(Object error, StackTrace stackTrace) =>
+    error is AppException
+    ? error
+    : UnexpectedException(
+        'Unexpected error: $error',
+        cause: error,
+        stackTrace: stackTrace,
+      );

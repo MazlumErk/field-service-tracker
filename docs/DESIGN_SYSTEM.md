@@ -60,7 +60,20 @@ Text scales with the system font size; layouts must not overflow at 1.3×–2×.
 | `AppMessageState` | ✅ Phase 1 | `.empty` / `.error` variants (replaces separate Empty/Error widgets — same layout) |
 | `NotFoundPage`, `PlaceholderPage` | ✅ Phase 1 | Routing fallbacks |
 | Buttons, text fields, top bar | ✅ via theme | Styled through `ThemeData`; no wrapper widget unless behavior is added |
-| `AppSearchField`, `AppMetricCard`, `AppStatusBadge`, customer/device/maintenance cards, confirmation dialog, loading skeleton | planned | Built with their first feature |
+| `AppSearchField` | ✅ Phase 3 | Search icon, clear button when text is entered |
+| `AppListSkeleton` | ✅ Phase 3 | Static (non-animated) placeholder cards while lists load |
+| `showAppConfirmationDialog` | ✅ Phase 3 | Returns `true` only for the confirm button; destructive variant uses the `error` color |
+| `AppSectionHeader` | ✅ Phase 3 | Section title with header semantics |
+| `MaintenanceStatusBadge` | ✅ Phase 3 | Icon + label + status colors (never color only) |
+| `DeviceOverviewTile` | ✅ Phase 3 | Model, serial number, status badge, next date |
+| `CustomerListTile`, `CustomerInfoCard`, `CustomerInitialsAvatar` | ✅ Phase 3 | Customer feature widgets; secondary info wraps instead of overflowing |
+| `AppMetricCard`, maintenance cards | planned | Dashboard / maintenance phases |
+
+## Dates
+
+User-visible dates use `context.formatDate(CalendarDate)` →
+`DateFormat.yMMMd` of the active locale ("19 Oca 2026"). Material's
+`formatMediumDate` is not used: its Turkish pattern omits the year.
 
 ## Motion
 

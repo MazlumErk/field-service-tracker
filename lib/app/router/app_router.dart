@@ -1,9 +1,19 @@
 import 'package:field_service_tracker/app/router/app_routes.dart';
 import 'package:field_service_tracker/app/router/app_shell.dart';
+import 'package:field_service_tracker/core/clock/app_clock.dart';
 import 'package:field_service_tracker/core/extensions/context_extensions.dart';
 import 'package:field_service_tracker/core/widgets/not_found_page.dart';
 import 'package:field_service_tracker/core/widgets/placeholder_page.dart';
+import 'package:field_service_tracker/features/customers/domain/customer_repository.dart';
+import 'package:field_service_tracker/features/customers/presentation/cubit/customer_detail_cubit.dart';
+import 'package:field_service_tracker/features/customers/presentation/cubit/customer_form_cubit.dart';
+import 'package:field_service_tracker/features/customers/presentation/cubit/customer_list_cubit.dart';
+import 'package:field_service_tracker/features/customers/presentation/pages/customer_detail_page.dart';
+import 'package:field_service_tracker/features/customers/presentation/pages/customer_form_page.dart';
+import 'package:field_service_tracker/features/customers/presentation/pages/customer_list_page.dart';
+import 'package:field_service_tracker/features/maintenance/domain/maintenance_repository.dart';
 import 'package:field_service_tracker/features/settings/presentation/pages/settings_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:material_ui/material_ui.dart';
 
@@ -42,15 +52,23 @@ GoRouter createAppRouter({String initialLocation = AppRoutes.dashboard}) {
             routes: [
               GoRoute(
                 path: AppRoutes.customers,
-                builder: (context, state) =>
-                    PlaceholderPage(title: context.l10n.navCustomers),
+                builder: (context, state) => BlocProvider(
+                  create: (context) =>
+                      CustomerListCubit(context.read<CustomerRepository>())
+                        ..load(),
+                  child: const CustomerListPage(),
+                ),
                 routes: [
                   // `new` must be declared before `:customerId`.
                   GoRoute(
                     path: 'new',
                     parentNavigatorKey: rootNavigatorKey,
-                    builder: (context, state) =>
-                        PlaceholderPage(title: context.l10n.customerNewTitle),
+                    builder: (context, state) => BlocProvider(
+                      create: (context) => CustomerFormCubit.create(
+                        context.read<CustomerRepository>(),
+                      ),
+                      child: const CustomerFormPage(),
+                    ),
                   ),
                   GoRoute(
                     path: ':customerId',
@@ -58,8 +76,16 @@ GoRouter createAppRouter({String initialLocation = AppRoutes.dashboard}) {
                     builder: (context, state) => _withId(
                       state,
                       'customerId',
-                      (_) => PlaceholderPage(
-                        title: context.l10n.customerDetailTitle,
+                      (id) => BlocProvider(
+                        create: (context) => CustomerDetailCubit(
+                          customerId: id,
+                          customerRepository: context
+                              .read<CustomerRepository>(),
+                          maintenanceRepository: context
+                              .read<MaintenanceRepository>(),
+                          clock: context.read<AppClock>(),
+                        )..load(),
+                        child: const CustomerDetailPage(),
                       ),
                     ),
                     routes: [
@@ -69,8 +95,12 @@ GoRouter createAppRouter({String initialLocation = AppRoutes.dashboard}) {
                         builder: (context, state) => _withId(
                           state,
                           'customerId',
-                          (_) => PlaceholderPage(
-                            title: context.l10n.customerEditTitle,
+                          (id) => BlocProvider(
+                            create: (context) => CustomerFormCubit.edit(
+                              context.read<CustomerRepository>(),
+                              customerId: id,
+                            )..load(),
+                            child: const CustomerFormPage(),
                           ),
                         ),
                       ),

@@ -2,12 +2,14 @@ import 'package:field_service_tracker/app/theme/app_spacing.dart';
 import 'package:field_service_tracker/core/app_info.dart';
 import 'package:field_service_tracker/core/extensions/context_extensions.dart';
 import 'package:field_service_tracker/core/widgets/app_scaffold.dart';
+import 'package:field_service_tracker/core/widgets/app_section_header.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_ui/material_ui.dart';
 
 /// Settings tab: app information and licenses.
 ///
-/// "Reset demo data" is added in Phase 2 together with the database.
+/// The "reset demo data" action (service ready since Phase 2) gets its button
+/// in a later phase.
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
 
@@ -25,7 +27,7 @@ class SettingsPage extends StatelessWidget {
       body: ListView(
         padding: AppSpacing.screenPadding,
         children: [
-          _SectionHeader(l10n.settingsSectionApp),
+          AppSectionHeader(l10n.settingsSectionApp),
           Card(
             clipBehavior: Clip.antiAlias,
             child: Column(
@@ -57,28 +59,6 @@ class SettingsPage extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _SectionHeader extends StatelessWidget {
-  const _SectionHeader(this.text);
-
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(
-        left: AppSpacing.xs,
-        bottom: AppSpacing.sm,
-      ),
-      child: Text(
-        text,
-        style: context.textTheme.titleMedium?.copyWith(
-          color: context.colors.onSurfaceVariant,
-        ),
       ),
     );
   }

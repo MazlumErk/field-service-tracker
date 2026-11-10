@@ -93,4 +93,197 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get settingsLicensesSubtitle =>
       'Kullanılan paketler ve Inter yazı tipi';
+
+  @override
+  String get commonRetry => 'Tekrar dene';
+
+  @override
+  String get commonCancel => 'Vazgeç';
+
+  @override
+  String get commonSave => 'Kaydet';
+
+  @override
+  String get commonEdit => 'Düzenle';
+
+  @override
+  String get commonDelete => 'Sil';
+
+  @override
+  String get commonMoreActions => 'Diğer işlemler';
+
+  @override
+  String get commonOptional => 'isteğe bağlı';
+
+  @override
+  String get commonNotProvided => 'Belirtilmemiş';
+
+  @override
+  String get errorNotFound => 'Kayıt bulunamadı. Silinmiş olabilir.';
+
+  @override
+  String get errorDuplicateCustomerNumber =>
+      'Bu müşteri numarası başka bir müşteride kullanılıyor.';
+
+  @override
+  String get errorValidation => 'Lütfen işaretli alanları kontrol edin.';
+
+  @override
+  String get errorDatabase =>
+      'İşlem tamamlanamadı. Verileriniz değişmedi; lütfen tekrar deneyin.';
+
+  @override
+  String get errorUnexpected =>
+      'Beklenmeyen bir hata oluştu. Lütfen tekrar deneyin.';
+
+  @override
+  String get errorLoadTitle => 'Veriler yüklenemedi';
+
+  @override
+  String get validationRequired => 'Bu alan zorunludur.';
+
+  @override
+  String validationTooLong(int max) {
+    return 'En fazla $max karakter girebilirsiniz.';
+  }
+
+  @override
+  String get validationCustomerNumberFormat =>
+      'Yalnızca harf (A–Z), rakam ve - _ / . kullanılabilir.';
+
+  @override
+  String get validationPhoneFormat =>
+      'Geçerli bir telefon numarası girin (10–15 rakam).';
+
+  @override
+  String get validationAlreadyInUse =>
+      'Bu müşteri numarası başka bir müşteride kullanılıyor.';
+
+  @override
+  String get customerSearchHint => 'Ad, soyad veya müşteri no ile ara';
+
+  @override
+  String get customerSearchClear => 'Aramayı temizle';
+
+  @override
+  String get customerAdd => 'Yeni müşteri';
+
+  @override
+  String customerCount(int count) {
+    return '$count müşteri';
+  }
+
+  @override
+  String customerResultCount(int count) {
+    return '$count sonuç';
+  }
+
+  @override
+  String customerDeviceCount(int count) {
+    return '$count cihaz';
+  }
+
+  @override
+  String get customerListEmptyTitle => 'Henüz müşteri yok';
+
+  @override
+  String get customerListEmptyMessage =>
+      'İlk müşterinizi ekleyerek cihaz ve bakım takibine başlayın.';
+
+  @override
+  String get customerNoResultsTitle => 'Sonuç bulunamadı';
+
+  @override
+  String customerNoResultsMessage(String query) {
+    return '“$query” ile eşleşen müşteri yok. Farklı bir ad veya müşteri numarası deneyin.';
+  }
+
+  @override
+  String get customerFieldFirstName => 'Ad';
+
+  @override
+  String get customerFieldLastName => 'Soyad';
+
+  @override
+  String get customerFieldNumber => 'Müşteri numarası';
+
+  @override
+  String get customerFieldNumberHelper =>
+      'Örn. FST-0021. Boşluklar kaldırılır, büyük harfe çevrilir.';
+
+  @override
+  String get customerFieldPhone => 'Telefon';
+
+  @override
+  String get customerFieldAddress => 'Adres';
+
+  @override
+  String get customerSaved => 'Müşteri kaydedildi.';
+
+  @override
+  String get customerUpdated => 'Değişiklikler kaydedildi.';
+
+  @override
+  String get customerSectionContact => 'İletişim';
+
+  @override
+  String get customerSectionDevices => 'Cihazlar';
+
+  @override
+  String get customerDevicesEmptyTitle => 'Kayıtlı cihaz yok';
+
+  @override
+  String get customerDevicesEmptyMessage =>
+      'Bu müşteriye henüz cihaz eklenmemiş.';
+
+  @override
+  String get customerDelete => 'Müşteriyi sil';
+
+  @override
+  String get customerDeleteTitle => 'Müşteri silinsin mi?';
+
+  @override
+  String customerDeleteMessageSimple(String name) {
+    return '$name kalıcı olarak silinecek. Bu işlem geri alınamaz.';
+  }
+
+  @override
+  String customerDeleteMessageWithRelated(
+    String name,
+    int devices,
+    int records,
+  ) {
+    return '$name ile birlikte $devices cihaz ve $records bakım kaydı kalıcı olarak silinecek. Bu işlem geri alınamaz.';
+  }
+
+  @override
+  String get customerDeleted => 'Müşteri silindi.';
+
+  @override
+  String get customerRegisteredAt => 'Kayıt tarihi';
+
+  @override
+  String deviceSerial(String serial) {
+    return 'Seri no: $serial';
+  }
+
+  @override
+  String deviceNextMaintenance(String date) {
+    return 'Sonraki bakım: $date';
+  }
+
+  @override
+  String get deviceNoMaintenanceYet => 'Henüz bakım yapılmadı';
+
+  @override
+  String get statusOverdue => 'Gecikti';
+
+  @override
+  String get statusUpcoming => 'Yaklaşıyor';
+
+  @override
+  String get statusScheduled => 'Planlandı';
+
+  @override
+  String get statusNoMaintenance => 'Bakım Kaydı Yok';
 }

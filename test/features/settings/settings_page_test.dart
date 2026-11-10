@@ -6,7 +6,7 @@ import '../../helpers/pump_app.dart';
 
 void main() {
   group('SettingsPage', () {
-    testWidgets('shows app info and the injected version', (tester) async {
+    testAppWidgets('shows app info and the injected version', (tester) async {
       await tester.pumpApp(location: AppRoutes.settings);
 
       expect(find.text('Uygulama hakkında'), findsOneWidget);
@@ -14,7 +14,7 @@ void main() {
       expect(find.text('Açık kaynak lisansları'), findsOneWidget);
     });
 
-    testWidgets('opens the licenses page', (tester) async {
+    testAppWidgets('opens the licenses page', (tester) async {
       await tester.pumpApp(location: AppRoutes.settings);
 
       await tester.tap(find.text('Açık kaynak lisansları'));
@@ -25,7 +25,7 @@ void main() {
   });
 
   group('Small screen and large text', () {
-    testWidgets('settings and shell render without overflow at 2x text on a '
+    testAppWidgets('settings and shell render without overflow at 2x text on a '
         '320x568 screen', (tester) async {
       tester.view.physicalSize = const Size(320, 568);
       tester.view.devicePixelRatio = 1;

@@ -39,5 +39,82 @@
     }
   },
   "settingsLicenses": "Açık kaynak lisansları",
-  "settingsLicensesSubtitle": "Kullanılan paketler ve Inter yazı tipi"
+  "settingsLicensesSubtitle": "Kullanılan paketler ve Inter yazı tipi",
+
+  "commonRetry": "Tekrar dene",
+  "commonCancel": "Vazgeç",
+  "commonSave": "Kaydet",
+  "commonEdit": "Düzenle",
+  "commonDelete": "Sil",
+  "commonMoreActions": "Diğer işlemler",
+  "commonOptional": "isteğe bağlı",
+  "commonNotProvided": "Belirtilmemiş",
+
+  "errorNotFound": "Kayıt bulunamadı. Silinmiş olabilir.",
+  "errorDuplicateCustomerNumber": "Bu müşteri numarası başka bir müşteride kullanılıyor.",
+  "errorValidation": "Lütfen işaretli alanları kontrol edin.",
+  "errorDatabase": "İşlem tamamlanamadı. Verileriniz değişmedi; lütfen tekrar deneyin.",
+  "errorUnexpected": "Beklenmeyen bir hata oluştu. Lütfen tekrar deneyin.",
+  "errorLoadTitle": "Veriler yüklenemedi",
+
+  "validationRequired": "Bu alan zorunludur.",
+  "validationTooLong": "En fazla {max} karakter girebilirsiniz.",
+  "@validationTooLong": { "placeholders": { "max": { "type": "int" } } },
+  "validationCustomerNumberFormat": "Yalnızca harf (A–Z), rakam ve - _ / . kullanılabilir.",
+  "validationPhoneFormat": "Geçerli bir telefon numarası girin (10–15 rakam).",
+  "validationAlreadyInUse": "Bu müşteri numarası başka bir müşteride kullanılıyor.",
+
+  "customerSearchHint": "Ad, soyad veya müşteri no ile ara",
+  "customerSearchClear": "Aramayı temizle",
+  "customerAdd": "Yeni müşteri",
+  "customerCount": "{count} müşteri",
+  "@customerCount": { "placeholders": { "count": { "type": "int" } } },
+  "customerResultCount": "{count} sonuç",
+  "@customerResultCount": { "placeholders": { "count": { "type": "int" } } },
+  "customerDeviceCount": "{count} cihaz",
+  "@customerDeviceCount": { "placeholders": { "count": { "type": "int" } } },
+  "customerListEmptyTitle": "Henüz müşteri yok",
+  "customerListEmptyMessage": "İlk müşterinizi ekleyerek cihaz ve bakım takibine başlayın.",
+  "customerNoResultsTitle": "Sonuç bulunamadı",
+  "customerNoResultsMessage": "“{query}” ile eşleşen müşteri yok. Farklı bir ad veya müşteri numarası deneyin.",
+  "@customerNoResultsMessage": { "placeholders": { "query": { "type": "String" } } },
+
+  "customerFieldFirstName": "Ad",
+  "customerFieldLastName": "Soyad",
+  "customerFieldNumber": "Müşteri numarası",
+  "customerFieldNumberHelper": "Örn. FST-0021. Boşluklar kaldırılır, büyük harfe çevrilir.",
+  "customerFieldPhone": "Telefon",
+  "customerFieldAddress": "Adres",
+  "customerSaved": "Müşteri kaydedildi.",
+  "customerUpdated": "Değişiklikler kaydedildi.",
+
+  "customerSectionContact": "İletişim",
+  "customerSectionDevices": "Cihazlar",
+  "customerDevicesEmptyTitle": "Kayıtlı cihaz yok",
+  "customerDevicesEmptyMessage": "Bu müşteriye henüz cihaz eklenmemiş.",
+  "customerDelete": "Müşteriyi sil",
+  "customerDeleteTitle": "Müşteri silinsin mi?",
+  "customerDeleteMessageSimple": "{name} kalıcı olarak silinecek. Bu işlem geri alınamaz.",
+  "@customerDeleteMessageSimple": { "placeholders": { "name": { "type": "String" } } },
+  "customerDeleteMessageWithRelated": "{name} ile birlikte {devices} cihaz ve {records} bakım kaydı kalıcı olarak silinecek. Bu işlem geri alınamaz.",
+  "@customerDeleteMessageWithRelated": {
+    "placeholders": {
+      "name": { "type": "String" },
+      "devices": { "type": "int" },
+      "records": { "type": "int" }
+    }
+  },
+  "customerDeleted": "Müşteri silindi.",
+  "customerRegisteredAt": "Kayıt tarihi",
+
+  "deviceSerial": "Seri no: {serial}",
+  "@deviceSerial": { "placeholders": { "serial": { "type": "String" } } },
+  "deviceNextMaintenance": "Sonraki bakım: {date}",
+  "@deviceNextMaintenance": { "placeholders": { "date": { "type": "String" } } },
+  "deviceNoMaintenanceYet": "Henüz bakım yapılmadı",
+
+  "statusOverdue": "Gecikti",
+  "statusUpcoming": "Yaklaşıyor",
+  "statusScheduled": "Planlandı",
+  "statusNoMaintenance": "Bakım Kaydı Yok"
 }

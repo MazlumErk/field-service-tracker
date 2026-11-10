@@ -6,7 +6,7 @@ import '../helpers/pump_app.dart';
 
 void main() {
   group('FieldServiceTrackerApp', () {
-    testWidgets('starts on the dashboard tab', (tester) async {
+    testAppWidgets('starts on the dashboard tab', (tester) async {
       await tester.pumpApp();
 
       expect(find.byType(AppShell), findsOneWidget);
@@ -21,7 +21,7 @@ void main() {
       );
     });
 
-    testWidgets('shows the four Turkish navigation destinations', (
+    testAppWidgets('shows the four Turkish navigation destinations', (
       tester,
     ) async {
       await tester.pumpApp();
@@ -41,7 +41,7 @@ void main() {
       }
     });
 
-    testWidgets('uses Turkish Material localizations', (tester) async {
+    testAppWidgets('uses Turkish Material localizations', (tester) async {
       await tester.pumpApp();
 
       final context = tester.element(find.byType(AppShell));

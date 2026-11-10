@@ -3,10 +3,11 @@
 **Offline-first field service and maintenance management application built
 with Flutter, BLoC and SQLite.**
 
-> 🚧 **Work in progress — Phase 2 of 9 (database & domain layer).**
-> The app shell, design system, navigation, SQLite database, business rules
-> and repositories are in place and tested. The customer, device and
-> maintenance screens are being built; see the [roadmap](#roadmap).
+> 🚧 **Work in progress — Phase 3 of 9 (customer management).**
+> The app shell, design system, SQLite database, business rules and the
+> complete customer management module are in place and tested. Device,
+> maintenance and dashboard screens are being built; see the
+> [roadmap](#roadmap).
 > Screenshots and a demo video will be added once real screens exist.
 
 ## Project Overview
@@ -25,7 +26,8 @@ offline, with all data stored on the device. The UI is in Turkish.
 | Local SQLite database (Drift) with integrity constraints | ✅ |
 | Fictional demo data on first launch, transactional reset service | ✅ (reset button ⏳) |
 | Maintenance status rules (overdue / upcoming / scheduled) | ✅ (logic, UI ⏳) |
-| Customers: search, create, edit, delete | ⏳ |
+| Customers: live Turkish-aware search, create, edit, safe delete with impact preview | ✅ |
+| Customer detail with devices and maintenance status | ✅ |
 | Devices and maintenance history | ⏳ |
 | Maintenance records with filter replacements and pricing | ⏳ |
 | Overdue / upcoming maintenance tracking and dashboard | ⏳ |
@@ -105,7 +107,7 @@ See [docs/DESIGN_SYSTEM.md](docs/DESIGN_SYSTEM.md).
 
 1. ✅ Project foundation — theme, routing, DI, docs
 2. ✅ Database & domain — Drift schema, DAOs, repositories, rules, seed
-3. ⏳ Customers
+3. ✅ Customers — list, search, form, detail, safe delete
 4. ⏳ Devices
 5. ⏳ Maintenance
 6. ⏳ Dashboard

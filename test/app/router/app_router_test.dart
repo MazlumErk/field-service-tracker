@@ -20,7 +20,7 @@ GoRouter _router(WidgetTester tester) =>
 
 void main() {
   group('Tab navigation', () {
-    testWidgets('switches between all four tabs', (tester) async {
+    testAppWidgets('switches between all four tabs', (tester) async {
       await tester.pumpApp();
 
       for (final (index, label) in [
@@ -40,25 +40,26 @@ void main() {
   });
 
   group('Pushed routes', () {
-    testWidgets('detail page covers the bottom bar and back returns to tab', (
-      tester,
-    ) async {
-      await tester.pumpApp(location: AppRoutes.customers);
+    testAppWidgets(
+      'detail page covers the bottom bar and back returns to tab',
+      (tester) async {
+        await tester.pumpApp(location: AppRoutes.customers, seed: true);
 
-      unawaited(_router(tester).push(AppRoutes.customerDetail(7)));
-      await tester.pumpAndSettle();
+        unawaited(_router(tester).push(AppRoutes.customerDetail(7)));
+        await tester.pumpAndSettle();
 
-      expect(_appBarTitle('Müşteri Detayı'), findsOneWidget);
-      expect(find.byType(NavigationBar), findsNothing);
+        expect(_appBarTitle('Müşteri Detayı'), findsOneWidget);
+        expect(find.byType(NavigationBar), findsNothing);
 
-      await tester.tap(find.byType(BackButton));
-      await tester.pumpAndSettle();
+        await tester.tap(find.byType(BackButton));
+        await tester.pumpAndSettle();
 
-      expect(_appBarTitle('Müşteriler'), findsOneWidget);
-      expect(find.byType(NavigationBar), findsOneWidget);
-    });
+        expect(_appBarTitle('Müşteriler'), findsOneWidget);
+        expect(find.byType(NavigationBar), findsOneWidget);
+      },
+    );
 
-    testWidgets('Android system back pops a pushed page', (tester) async {
+    testAppWidgets('Android system back pops a pushed page', (tester) async {
       await tester.pumpApp();
 
       unawaited(_router(tester).push(AppRoutes.deviceDetail(3)));
@@ -71,7 +72,7 @@ void main() {
       expect(_appBarTitle('Genel Bakış'), findsOneWidget);
     });
 
-    testWidgets('every planned route resolves to its page', (tester) async {
+    testAppWidgets('every planned route resolves to its page', (tester) async {
       final expected = <String, String>{
         AppRoutes.customerNew: 'Yeni Müşteri',
         AppRoutes.customerDetail(1): 'Müşteri Detayı',
@@ -83,28 +84,30 @@ void main() {
       };
 
       for (final MapEntry(key: location, value: title) in expected.entries) {
-        await tester.pumpApp(location: location);
+        // Seeded so that customer #1 exists for the customer routes.
+        await tester.pumpApp(location: location, seed: true);
         expect(_appBarTitle(title), findsOneWidget, reason: location);
         // Rebuild from scratch for the next location.
         await tester.pumpWidget(const SizedBox());
+        await tester.pump();
       }
     });
   });
 
   group('Invalid locations', () {
-    testWidgets('unknown path shows the not-found page', (tester) async {
+    testAppWidgets('unknown path shows the not-found page', (tester) async {
       await tester.pumpApp(location: '/does-not-exist');
 
       expect(find.byType(NotFoundPage), findsOneWidget);
     });
 
-    testWidgets('non-numeric id shows the not-found page', (tester) async {
+    testAppWidgets('non-numeric id shows the not-found page', (tester) async {
       await tester.pumpApp(location: '/devices/abc');
 
       expect(find.byType(NotFoundPage), findsOneWidget);
     });
 
-    testWidgets('not-found action navigates back to the dashboard', (
+    testAppWidgets('not-found action navigates back to the dashboard', (
       tester,
     ) async {
       await tester.pumpApp(location: '/customers/0');

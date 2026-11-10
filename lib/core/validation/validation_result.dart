@@ -11,6 +11,10 @@ enum ValidationError {
   inFuture,
   beforeMaintenanceDate,
   empty,
+
+  /// The value must be unique but is already used (e.g. customer number).
+  /// Detected by the repository, not by the synchronous validators.
+  alreadyInUse,
 }
 
 /// Outcome of validating a draft whose fields are described by enum [F].
