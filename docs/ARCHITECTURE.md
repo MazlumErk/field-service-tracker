@@ -1,8 +1,8 @@
 # Architecture
 
-> Status: **Phase 6** — all four tabs are implemented: dashboard,
+> Status: **Phase 7** — all four tabs are implemented: dashboard,
 > customers (with devices and maintenance records), maintenance overview
-> and settings.
+> and settings with demo data reset.
 > Rules are defined in [AGENTS.md](../AGENTS.md); this document explains them.
 
 ## Layers and data flow
@@ -57,6 +57,7 @@ types, so state subclasses with equal props would be equal).
 | `DeviceFormCubit` | Create (bound to a customer id) / edit (owner never sent); installation date held in state (date picker); domain validation; double-submit guard | `getDevice`, `createDevice`, `updateDevice` |
 | `DashboardCubit` | Combines customer count, device overview and day changes; KPIs and limited priority list via `MaintenanceOverviewRules` | `watchCustomerCount`, `watchOverview`, `TodayProvider.changes` |
 | `MaintenanceListCubit` | Same overview stream; status filter, counts per filter, priority order; filtering and day changes in memory | `watchOverview`, `TodayProvider.changes` |
+| `SettingsCubit` | Runs the confirmed demo reset once (`idle → resetting → success / failure`); the page shows the dialog | `DemoDataRepository.resetDemoData` |
 | `MaintenanceFormCubit` | Defaults (today, +6 months), date changes with suggestion tracking (`nextDateCustomized`), filter toggling (`Set`), price parsing, domain validation, double-submit guard | `watchDeviceOverview` (header, first value), `createRecord` |
 
 Forms wrap their page in `UnsavedChangesGuard` (`PopScope`), so the app bar

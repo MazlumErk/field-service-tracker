@@ -57,7 +57,7 @@ dart run drift_dev schema generate drift_schemas/app_database/ test/database/gen
 Rollback tests create a temporary SQLite trigger that `RAISE(ABORT)`s in the
 middle of a transaction and assert that no partial data remains.
 
-## Current suites (Phase 6)
+## Current suites (Phase 7)
 
 | File | Covers |
 |---|---|
@@ -81,7 +81,8 @@ middle of a transaction and assert that no partial data remains.
 | `test/features/dashboard/presentation/overview_cubits_test.dart` | Dashboard KPIs, priority limit, waiting for both sources, data and day-change recomputation, errors, cleanup; maintenance list order, filters, empty states, day change, cleanup |
 | `test/features/dashboard/presentation/dashboard_flows_test.dart` | Seeded: KPIs, priority row → device, see all → overdue / no-record filters, new maintenance and customer delete update the dashboard, 2× text |
 | `test/core/widgets/unsaved_changes_test.dart` | Guard on customer and device forms: no-change exit, cancel, discard via Android back, revert = no change, no dialog after save, create forms |
-| `test/app/**`, `test/features/settings/**` | Phase 1 app shell, routing, theme, settings |
+| `test/features/settings/settings_page_test.dart` | Identity / version / licenses, reset cancel keeps data, confirmed reset restores demo data and updates dashboard and customer list, `SettingsCubit` success / failure / single run, 2× text |
+| `test/app/**` | Phase 1 app shell, routing, theme |
 
 ## Manual Android verification (Phase 3)
 
@@ -155,6 +156,21 @@ Fresh install (emulator date 11 Nov 2026). Screenshots: `dashboard.png`,
 
 Narrow screen / 2× text is covered by widget tests (system font size of the
 emulator was not changed).
+
+## Manual Android verification (Phase 7)
+
+Fresh install. Screenshots: `settings.png`, `settings_reset_dialog.png`,
+`settings_reset_success.png`.
+
+1. Ayarlar → Demo verilerini sıfırla → Vazgeç: database unchanged
+   (20 customers, 28 devices, 63 records).
+2. Müşteriler → Yeni müşteri "Deneme Musteri / USR-1" → 21 customers on the
+   list and dashboard.
+3. Ayarlar → Sıfırla → snackbar; database 20 / 28 / 63, no user customer,
+   no FK violations; dashboard 20 / 28 / 5 overdue, list "20 müşteri".
+4. Force-stop and restart: data persisted (20 / 28 / 63).
+
+Rollback of a failing reset is covered by `demo_data_test.dart` (Phase 2).
 
 Transaction rollback of record + filters is covered by
 `drift_maintenance_repository_test.dart` (Phase 2) and was not duplicated.

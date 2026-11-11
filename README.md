@@ -3,10 +3,11 @@
 **Offline-first field service and maintenance management application built
 with Flutter, BLoC and SQLite.**
 
-> 🚧 **Work in progress — Phase 6 of 9 (dashboard & maintenance overview).**
-> All four tabs are functional: dashboard, customers, maintenance overview
-> and settings, on a tested SQLite database. UX refinement, CI and the
-> portfolio release follow; see the [roadmap](#roadmap).
+> 🚧 **Work in progress — Phase 7 of 9 (settings & demo data).**
+> All features of the first version are in place and tested: dashboard,
+> customers, devices, maintenance records, maintenance overview and
+> settings with demo data reset. Quality assurance / CI and the portfolio
+> release follow; see the [roadmap](#roadmap).
 
 ## Project Overview
 
@@ -20,9 +21,9 @@ offline, with all data stored on the device. The UI is in Turkish.
 |---|---|
 | Material 3 app shell with 4-tab navigation | ✅ |
 | "Calm Operations" design system (Inter, tokens, status colors) | ✅ |
-| Settings: about, version, open-source licenses | ✅ |
+| Settings: app identity, real version, about, open-source licenses | ✅ |
 | Local SQLite database (Drift) with integrity constraints | ✅ |
-| Fictional demo data on first launch, transactional reset service | ✅ (reset button ⏳) |
+| Fictional demo data on first launch; confirmed, transactional "reset demo data" in Settings | ✅ |
 | Maintenance status rules (overdue / upcoming / scheduled) | ✅ (logic, UI ⏳) |
 | Customers: live Turkish-aware search, create, edit, safe delete with impact preview | ✅ |
 | Customer detail with devices and maintenance status | ✅ |
@@ -54,6 +55,10 @@ Real screenshots from the Android emulator (demo data):
 | New maintenance | Filter selection & price | History after saving |
 |---|---|---|
 | ![Maintenance form](docs/images/maintenance_form.png) | ![Filter selection](docs/images/maintenance_filter_selection.png) | ![Updated history](docs/images/maintenance_history_updated.png) |
+
+| Settings | Reset confirmation | After reset |
+|---|---|---|
+| ![Settings](docs/images/settings.png) | ![Reset dialog](docs/images/settings_reset_dialog.png) | ![Reset done](docs/images/settings_reset_success.png) |
 
 More in [`docs/images/`](docs/images/).
 
@@ -132,7 +137,7 @@ See [docs/DESIGN_SYSTEM.md](docs/DESIGN_SYSTEM.md).
 4. ✅ Devices — add, edit, detail with history, safe delete
 5. ✅ Maintenance — record visits with filters, price, notes and next date
 6. ✅ Dashboard & maintenance overview
-7. ⏳ UX refinement
+7. ✅ Settings & demo data management
 8. ⏳ Quality assurance & CI
 9. ⏳ Portfolio release — screenshots, demo video, APK
 

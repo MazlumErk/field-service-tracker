@@ -5,8 +5,8 @@ Legend: ✅ done · 🚧 in progress · ⏳ planned (phase)
 | # | Feature | Status |
 |---|---|---|
 | 1 | App shell, theme, 4-tab navigation, Turkish UI | ✅ Phase 1 |
-| 2 | Settings: about, version, licenses | ✅ Phase 1 |
-| 3 | Local database, domain rules, repositories, demo seed, demo reset service | ✅ Phase 2 (reset button: Phase 3+) |
+| 2 | Settings: identity, version, demo data reset, about, licenses | ✅ Phase 1 / 7 |
+| 3 | Local database, domain rules, repositories, demo seed, demo reset service | ✅ Phase 2 (reset in Settings: Phase 7) |
 | 4 | Customers: list, search, detail, create/edit/delete | ✅ Phase 3 |
 | 5 | Devices: detail with history, create/edit, safe delete, customer relation | ✅ Phase 4 |
 | 6 | Maintenance: form, filters, history, status | ✅ Phase 5 |
@@ -153,6 +153,36 @@ delete. The unsaved-changes guard protects the form.
 - [x] Transactional save, progress state, double-submit guard, Turkish errors.
 - [x] Device detail shows the new record first; last / next dates and status update.
 - [x] Unsaved-changes dialog on both back paths; none after saving.
+- [x] Verified on the Android emulator; screenshots in `docs/images/`.
+
+## Phase 7 — Settings & demo data management
+
+Ayarlar shows the app name, tagline and the real version
+(`package_info_plus`, loaded at startup), a **Demo verileri** section and
+the about / licenses section.
+
+**Demo verilerini sıfırla:**
+
+1. A destructive confirmation dialog states that *all* data — including
+   customers, devices and maintenance records the user added — is deleted
+   permanently and the initial demo data is recreated.
+2. "Vazgeç" changes nothing (the reset is never called).
+3. "Sıfırla" runs `DemoDataRepository.resetDemoData()` — delete all tables
+   and re-seed relative to today in **one transaction**; on failure the
+   transaction rolls back and the previous data stays.
+4. While running, the row is disabled with a progress indicator and
+   repeated calls are ignored (`SettingsCubit`).
+5. A snackbar reports success ("Demo verileri yeniden oluşturuldu.") or a
+   Turkish error.
+6. Dashboard, customer list and maintenance overview update through their
+   existing repository streams.
+
+### Acceptance criteria
+
+- [x] Settings with identity, real version, demo data management, about, licenses.
+- [x] Confirmed reset; cancel keeps data; user data removed on reset.
+- [x] Transactional reset with rollback; repeated taps ignored; success / error feedback.
+- [x] Other tabs update automatically; data persists after restart.
 - [x] Verified on the Android emulator; screenshots in `docs/images/`.
 
 ## Phase 6 — Dashboard & maintenance overview

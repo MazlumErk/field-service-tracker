@@ -66,6 +66,32 @@ class AppLocalizationsTr extends AppLocalizations {
   String get settingsSectionApp => 'Uygulama';
 
   @override
+  String get settingsSectionDemo => 'Demo verileri';
+
+  @override
+  String get settingsTagline => 'Offline saha servis ve bakım takibi';
+
+  @override
+  String get settingsResetDemo => 'Demo verilerini sıfırla';
+
+  @override
+  String get settingsResetDemoSubtitle =>
+      'Tüm kayıtları silip başlangıçtaki örnek müşterileri, cihazları ve bakım geçmişini yeniden oluşturur.';
+
+  @override
+  String get settingsResetTitle => 'Demo verileri sıfırlansın mı?';
+
+  @override
+  String get settingsResetMessage =>
+      'Sonradan eklediğiniz müşteriler, cihazlar ve bakım kayıtları dahil tüm veriler kalıcı olarak silinecek ve başlangıçtaki demo verileri yeniden oluşturulacak. Bu işlem geri alınamaz.';
+
+  @override
+  String get settingsResetConfirm => 'Sıfırla';
+
+  @override
+  String get settingsResetDone => 'Demo verileri yeniden oluşturuldu.';
+
+  @override
   String get settingsAbout => 'Uygulama hakkında';
 
   @override

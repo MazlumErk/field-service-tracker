@@ -202,6 +202,54 @@ abstract class AppLocalizations {
   /// **'Uygulama'**
   String get settingsSectionApp;
 
+  /// No description provided for @settingsSectionDemo.
+  ///
+  /// In tr, this message translates to:
+  /// **'Demo verileri'**
+  String get settingsSectionDemo;
+
+  /// No description provided for @settingsTagline.
+  ///
+  /// In tr, this message translates to:
+  /// **'Offline saha servis ve bakım takibi'**
+  String get settingsTagline;
+
+  /// No description provided for @settingsResetDemo.
+  ///
+  /// In tr, this message translates to:
+  /// **'Demo verilerini sıfırla'**
+  String get settingsResetDemo;
+
+  /// No description provided for @settingsResetDemoSubtitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Tüm kayıtları silip başlangıçtaki örnek müşterileri, cihazları ve bakım geçmişini yeniden oluşturur.'**
+  String get settingsResetDemoSubtitle;
+
+  /// No description provided for @settingsResetTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Demo verileri sıfırlansın mı?'**
+  String get settingsResetTitle;
+
+  /// No description provided for @settingsResetMessage.
+  ///
+  /// In tr, this message translates to:
+  /// **'Sonradan eklediğiniz müşteriler, cihazlar ve bakım kayıtları dahil tüm veriler kalıcı olarak silinecek ve başlangıçtaki demo verileri yeniden oluşturulacak. Bu işlem geri alınamaz.'**
+  String get settingsResetMessage;
+
+  /// No description provided for @settingsResetConfirm.
+  ///
+  /// In tr, this message translates to:
+  /// **'Sıfırla'**
+  String get settingsResetConfirm;
+
+  /// No description provided for @settingsResetDone.
+  ///
+  /// In tr, this message translates to:
+  /// **'Demo verileri yeniden oluşturuldu.'**
+  String get settingsResetDone;
+
   /// No description provided for @settingsAbout.
   ///
   /// In tr, this message translates to:

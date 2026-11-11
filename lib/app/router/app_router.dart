@@ -22,6 +22,8 @@ import 'package:field_service_tracker/features/maintenance/presentation/cubit/ma
 import 'package:field_service_tracker/features/maintenance/presentation/cubit/maintenance_list_cubit.dart';
 import 'package:field_service_tracker/features/maintenance/presentation/pages/maintenance_form_page.dart';
 import 'package:field_service_tracker/features/maintenance/presentation/pages/maintenance_list_page.dart';
+import 'package:field_service_tracker/features/settings/domain/demo_data_repository.dart';
+import 'package:field_service_tracker/features/settings/presentation/cubit/settings_cubit.dart';
 import 'package:field_service_tracker/features/settings/presentation/pages/settings_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -163,7 +165,11 @@ GoRouter createAppRouter({String initialLocation = AppRoutes.dashboard}) {
             routes: [
               GoRoute(
                 path: AppRoutes.settings,
-                builder: (context, state) => const SettingsPage(),
+                builder: (context, state) => BlocProvider(
+                  create: (context) =>
+                      SettingsCubit(context.read<DemoDataRepository>()),
+                  child: const SettingsPage(),
+                ),
               ),
             ],
           ),
