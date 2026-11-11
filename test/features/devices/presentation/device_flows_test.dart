@@ -217,6 +217,28 @@ void main() {
       await tester.pumpAndSettle();
       expect(appBarTitle('Müşteri Detayı'), findsOneWidget);
     });
+
+    testAppWidgets('owner link does not grow the stack (customer ↔ device)', (
+      tester,
+    ) async {
+      await tester.pumpApp(location: AppRoutes.customers, seed: true);
+      await tester.tap(find.text('Mustafa Çelik'));
+      await tester.pumpAndSettle();
+
+      // Bounce between customer and device several times.
+      for (var i = 0; i < 3; i++) {
+        await tester.tap(find.byType(DeviceOverviewTile).first);
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('Mustafa Çelik'));
+        await tester.pumpAndSettle();
+        expect(appBarTitle('Müşteri Detayı'), findsOneWidget);
+      }
+
+      // One back press returns to the list, not to a device page.
+      await tester.binding.handlePopRoute();
+      await tester.pumpAndSettle();
+      expect(appBarTitle('Müşteriler'), findsOneWidget);
+    });
   });
 
   group('Edit device', () {

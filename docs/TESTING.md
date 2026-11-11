@@ -172,5 +172,31 @@ Fresh install. Screenshots: `settings.png`, `settings_reset_dialog.png`,
 
 Rollback of a failing reset is covered by `demo_data_test.dart` (Phase 2).
 
+## Phase 8 — QA review and manual verification
+
+**Review:** every `listen` has a matching `cancel` in `close()`; no
+`BuildContext` use after async gaps; no TODOs; no dead code after the
+Phase 6 cleanup. Real issues found and fixed: unbounded customer ↔ device
+navigation stack; `1250.50` price input rejected.
+
+**2× text on the emulator** (`font_scale 2.0`, debug build, restored to
+1.0 afterwards): all nine screens visited and scrolled; logcat contained
+no `RenderFlex overflowed` errors.
+
+**Performance (profile build, emulator):** cold start 1.0–1.3 s
+(first launch incl. database creation and seeding: 1.27 s). Lists use
+`ListView.builder`; dashboard and maintenance list share one overview
+query (Drift de-duplicates identical stream queries); filtering and day
+changes are in memory. `dumpsys gfxinfo` does not count Flutter/Impeller
+frames, so no frame-time numbers were recorded; scrolling was visually
+smooth. No change was made without a measured problem.
+
+**End to end:** customer → device → maintenance with price `1250.50`
+(stored ₺1.250,50) → dashboard 21 / 29; customer ↔ device three times
+then one back press → customer list. The other flows (search / edit,
+device edit, filters, delete cancel / confirm, demo reset, unsaved
+changes) were verified on the emulator in Phases 3–7 and their code was
+not changed in Phase 8.
+
 Transaction rollback of record + filters is covered by
 `drift_maintenance_repository_test.dart` (Phase 2) and was not duplicated.

@@ -3,7 +3,7 @@
 **Offline-first field service and maintenance management application built
 with Flutter, BLoC and SQLite.**
 
-> 🚧 **Work in progress — Phase 7 of 9 (settings & demo data).**
+> 🚧 **Work in progress — Phase 8 of 9 (quality assurance & polish).**
 > All features of the first version are in place and tested: dashboard,
 > customers, devices, maintenance records, maintenance overview and
 > settings with demo data reset. Quality assurance / CI and the portfolio
@@ -138,8 +138,20 @@ See [docs/DESIGN_SYSTEM.md](docs/DESIGN_SYSTEM.md).
 5. ✅ Maintenance — record visits with filters, price, notes and next date
 6. ✅ Dashboard & maintenance overview
 7. ✅ Settings & demo data management
-8. ⏳ Quality assurance & CI
-9. ⏳ Portfolio release — screenshots, demo video, APK
+8. ✅ Quality assurance & UX polish — code / UX review, 2× text check on the
+   emulator, navigation and price-input fixes
+9. ⏳ Portfolio release — CI workflow, demo video, release APK, public
+   showcase repository
+
+## Known limitations
+
+- Single device, offline only: no cloud sync, backup or multi-user access.
+- Maintenance records are immutable in v1 (no edit / delete); deleting a
+  device or customer removes its history after confirmation.
+- Turkish UI only; light theme only.
+- Verified on an Android emulator (API 37); not yet on physical devices or
+  iOS.
+- No automated CI yet (planned for the portfolio release).
 
 ## Disclaimer
 

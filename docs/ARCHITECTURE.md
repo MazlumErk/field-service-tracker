@@ -121,6 +121,9 @@ popped. Repositories and the database are app-wide singletons.
 - Detail and form pages are pushed on the **root** navigator: they cover the
   bottom bar, and the Android back button pops them back to the tab.
 - Unknown paths and malformed ids (`/customers/abc`) render `NotFoundPage`.
+- The owner link on the device detail uses `go` (not `push`) to the
+  customer inside the Müşteriler tab, so customer ↔ device navigation can
+  never grow the stack beyond list → customer → device.
 
 ## Key decisions
 

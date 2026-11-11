@@ -131,7 +131,7 @@ void main() {
     for (final (input, error) in [
       ('', ValidationError.required),
       ('12,345', ValidationError.invalidFormat),
-      ('1.25', ValidationError.invalidFormat),
+      ('1.250.50', ValidationError.invalidFormat),
       ('1000000,01', ValidationError.tooLarge),
     ]) {
       test('"$input" → $error', () async {

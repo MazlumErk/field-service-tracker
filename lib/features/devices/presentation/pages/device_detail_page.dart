@@ -173,12 +173,13 @@ class _DetailContent extends StatelessWidget {
           children: [
             DeviceSummaryCard(
               state: state,
-              onCustomerTap: () => unawaited(
-                context.push(AppRoutes.customerDetail(overview.customerId)),
-              ),
+              // `go`, not `push`: jumps to the customer inside the
+              // Müşteriler tab (stack: list → customer). Pushing would let
+              // customer → device → customer → … grow without limit.
+              onCustomerTap: () =>
+                  context.go(AppRoutes.customerDetail(overview.customerId)),
             ),
             const SizedBox(height: AppSpacing.lg),
-            // Phase 5 implements the form behind this route.
             FilledButton.tonalIcon(
               onPressed: state.isBusy
                   ? null

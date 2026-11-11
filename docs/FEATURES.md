@@ -40,7 +40,7 @@ maintenance: Phase 5).
 | Address | optional, max 250 | "En fazla 250 karakter girebilirsiniz." |
 | Device model | required | "Model zorunludur" |
 | Phone | optional; digits, spaces, `+ ( ) -`, 10–15 digits | "Geçerli bir telefon numarası girin (10–15 rakam)." |
-| Price | required; 0 … 1.000.000 TL; `1250`, `1250,50`, `1.250,50` (comma = decimals, dots only as thousands groups); stored as integer kuruş | "Bu alan zorunludur." / "Geçerli bir tutar girin (örn. 1.250,50)." / "Tutar en fazla ₺1.000.000,00 olabilir." |
+| Price | required; 0 … 1.000.000 TL; Turkish `1250`, `1250,50`, `1.250,50` (comma = decimals, dots = thousands groups of 3). Since Phase 8 also `1250.50`: a single dot + 1–2 digits is a decimal point (unambiguous, a thousands group always has 3 digits). Mixed / ambiguous input such as `1.250.50` is rejected, never guessed. Stored as integer kuruş | "Bu alan zorunludur." / "Geçerli bir tutar girin (örn. 1.250,50 veya 1250.50)." / "Tutar en fazla ₺1.000.000,00 olabilir." |
 | Maintenance date | defaults to today, not in the future | "Bakım tarihi ileri bir tarih olamaz." |
 | Device installation date | not in the future | "Kurulum tarihi ileri bir tarih olamaz." |
 | Next maintenance date | ≥ maintenance date; defaults to maintenance date + 6 calendar months | "Sonraki bakım tarihi bakım tarihinden önce olamaz." |

@@ -127,6 +127,11 @@ void main() {
       '₺ 1.250,75': 125075,
       '1250 TL': 125000,
       '1.000.000': 100000000,
+      // Phase 8: a single dot + 1–2 digits is a decimal point.
+      '1250.50': 125050,
+      '12.50': 1250,
+      '1.25': 125,
+      '1.5': 150,
     };
     valid.forEach((input, expected) {
       test('"$input" → $expected kuruş', () {
@@ -140,8 +145,11 @@ void main() {
       '-50',
       '12,345',
       '1,2,3',
-      '12.50',
-      '1.25',
+      // Ambiguous or mixed formats are never guessed.
+      '1.250.50',
+      '1250.505',
+      '1.250,5.0',
+      '1.2.3',
     ]) {
       test('"$input" is rejected', () {
         expect(MaintenancePrice.parseToKurus(input), isNull);

@@ -91,7 +91,7 @@ void main() {
 
     expect(find.text('En az bir filtre seçin.'), findsOneWidget);
     expect(
-      find.text('Geçerli bir tutar girin (örn. 1.250,50).'),
+      find.text('Geçerli bir tutar girin (örn. 1.250,50 veya 1250.50).'),
       findsOneWidget,
     );
     expect(appBarTitle('Yeni Bakım Kaydı'), findsOneWidget);

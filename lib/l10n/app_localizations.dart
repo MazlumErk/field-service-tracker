@@ -857,7 +857,7 @@ abstract class AppLocalizations {
   /// No description provided for @maintenanceFieldPriceHelper.
   ///
   /// In tr, this message translates to:
-  /// **'Örn. 1250 veya 1.250,50 (kuruş için virgül)'**
+  /// **'Örn. 1250, 1.250,50 veya 1250.50'**
   String get maintenanceFieldPriceHelper;
 
   /// No description provided for @maintenanceFieldNotes.
@@ -899,7 +899,7 @@ abstract class AppLocalizations {
   /// No description provided for @validationPriceFormat.
   ///
   /// In tr, this message translates to:
-  /// **'Geçerli bir tutar girin (örn. 1.250,50).'**
+  /// **'Geçerli bir tutar girin (örn. 1.250,50 veya 1250.50).'**
   String get validationPriceFormat;
 
   /// No description provided for @validationPriceTooLarge.

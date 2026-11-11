@@ -446,8 +446,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get maintenanceFieldPrice => 'Bakım ücreti';
 
   @override
-  String get maintenanceFieldPriceHelper =>
-      'Örn. 1250 veya 1.250,50 (kuruş için virgül)';
+  String get maintenanceFieldPriceHelper => 'Örn. 1250, 1.250,50 veya 1250.50';
 
   @override
   String get maintenanceFieldNotes => 'Notlar';
@@ -471,7 +470,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get validationPriceFormat =>
-      'Geçerli bir tutar girin (örn. 1.250,50).';
+      'Geçerli bir tutar girin (örn. 1.250,50 veya 1250.50).';
 
   @override
   String get validationPriceTooLarge =>
