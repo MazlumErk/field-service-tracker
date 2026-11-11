@@ -3,6 +3,7 @@ import 'package:field_service_tracker/core/extensions/context_extensions.dart';
 import 'package:field_service_tracker/core/extensions/date_format_extensions.dart';
 import 'package:field_service_tracker/features/devices/presentation/cubit/device_detail_state.dart';
 import 'package:field_service_tracker/features/maintenance/domain/maintenance_status.dart';
+import 'package:field_service_tracker/features/maintenance/presentation/maintenance_due_text.dart';
 import 'package:field_service_tracker/features/maintenance/presentation/widgets/maintenance_status_badge.dart';
 import 'package:material_ui/material_ui.dart';
 
@@ -18,14 +19,8 @@ class DeviceSummaryCard extends StatelessWidget {
   final DeviceDetailState state;
   final VoidCallback onCustomerTap;
 
-  String _statusDetail(BuildContext context) {
-    final l10n = context.l10n;
-    final days = state.daysUntilNextMaintenance;
-    if (days == null) return l10n.deviceNeverServiced;
-    if (days < 0) return l10n.deviceOverdueDays(-days);
-    if (days == 0) return l10n.deviceDueToday;
-    return l10n.deviceDaysLeft(days);
-  }
+  String _statusDetail(BuildContext context) =>
+      maintenanceDueText(context.l10n, state.daysUntilNextMaintenance);
 
   @override
   Widget build(BuildContext context) {

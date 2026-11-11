@@ -57,7 +57,7 @@ dart run drift_dev schema generate drift_schemas/app_database/ test/database/gen
 Rollback tests create a temporary SQLite trigger that `RAISE(ABORT)`s in the
 middle of a transaction and assert that no partial data remains.
 
-## Current suites (Phase 5)
+## Current suites (Phase 6)
 
 | File | Covers |
 |---|---|
@@ -76,6 +76,10 @@ middle of a transaction and assert that no partial data remains.
 | `test/features/devices/presentation/device_flows_test.dart` | Seeded flows: add → detail → customer list update, Turkish date picker, history order and content, all statuses, edit, delete cancel / confirm with database checks, back button, 2× text |
 | `test/features/maintenance/presentation/cubit/maintenance_form_cubit_test.dart` | Defaults incl. month-end clamping, suggestion follow / no overwrite / reset, filters ≥ 1 and no duplicates, price errors, saved kuruş / filters / notes, double submit, storage failure, unknown device |
 | `test/features/maintenance/presentation/maintenance_flows_test.dart` | Seeded flow: device → form → save → history first and status updated; Turkish validation errors; unsaved-changes guard; 2× text |
+| `test/core/clock/day_tracker_test.dart` | Midnight timer duration and re-arming, resume only emits on a real day change, DST-safe midnight |
+| `test/features/maintenance/domain/maintenance_overview_rules_test.dart` | Each device counted once, 0 / 30 / 31 boundaries and next-day shift, priority order, priority subset |
+| `test/features/dashboard/presentation/overview_cubits_test.dart` | Dashboard KPIs, priority limit, waiting for both sources, data and day-change recomputation, errors, cleanup; maintenance list order, filters, empty states, day change, cleanup |
+| `test/features/dashboard/presentation/dashboard_flows_test.dart` | Seeded: KPIs, priority row → device, see all → overdue / no-record filters, new maintenance and customer delete update the dashboard, 2× text |
 | `test/core/widgets/unsaved_changes_test.dart` | Guard on customer and device forms: no-change exit, cancel, discard via Android back, revert = no change, no dialog after save, create forms |
 | `test/app/**`, `test/features/settings/**` | Phase 1 app shell, routing, theme, settings |
 
@@ -135,6 +139,22 @@ Fresh install, emulator date 10 Nov 2026. Screenshots: `maintenance_form.png`,
    history unchanged.
 4. No filter + price "12,345" → "En az bir filtre seçin." and
    "Geçerli bir tutar girin (örn. 1.250,50)."
+
+## Manual Android verification (Phase 6)
+
+Fresh install (emulator date 11 Nov 2026). Screenshots: `dashboard.png`,
+`maintenance_overview.png`, `maintenance_overdue_filter.png`.
+
+1. Dashboard: 20 / 28 / 5 overdue / 10 upcoming; first priority row
+   Fatma Şahin "60 gün gecikti" → device detail.
+2. Bakımlar → "Geciken (5)" → oldest first → device detail.
+3. Device → Yeni bakım → Kaydet → "Planlandı · 181 gün kaldı"; Bakımlar
+   "Geciken (4)"; dashboard overdue 5 → 4, priority list updated.
+4. Filters: Yaklaşan (10, "Bakım bugün" first), Planlanan (11, 31 days
+   first), Bakım Kaydı Yok (3), Tümü (28 = 4 + 10 + 11 + 3).
+
+Narrow screen / 2× text is covered by widget tests (system font size of the
+emulator was not changed).
 
 Transaction rollback of record + filters is covered by
 `drift_maintenance_repository_test.dart` (Phase 2) and was not duplicated.

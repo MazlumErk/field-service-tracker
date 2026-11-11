@@ -6,6 +6,7 @@ import 'package:field_service_tracker/app/router/app_routes.dart';
 import 'package:field_service_tracker/app/theme/app_theme.dart';
 import 'package:field_service_tracker/core/app_info.dart';
 import 'package:field_service_tracker/core/clock/app_clock.dart';
+import 'package:field_service_tracker/core/clock/day_tracker.dart';
 import 'package:field_service_tracker/features/customers/domain/customer_repository.dart';
 import 'package:field_service_tracker/features/devices/domain/device_repository.dart';
 import 'package:field_service_tracker/features/maintenance/domain/maintenance_repository.dart';
@@ -46,9 +47,13 @@ class _FieldServiceTrackerAppState extends State<FieldServiceTrackerApp> {
     initialLocation: widget.initialLocation,
   );
 
+  /// Reports calendar-day changes (resume + midnight) to all screens.
+  late final DayTracker _dayTracker = DayTracker(widget.clock)..start();
+
   @override
   void dispose() {
     _router.dispose();
+    unawaited(_dayTracker.dispose());
     unawaited(widget.dependencies.dispose());
     super.dispose();
   }
@@ -60,6 +65,7 @@ class _FieldServiceTrackerAppState extends State<FieldServiceTrackerApp> {
       providers: [
         RepositoryProvider<AppClock>.value(value: widget.clock),
         RepositoryProvider<AppInfo>.value(value: widget.appInfo),
+        RepositoryProvider<TodayProvider>.value(value: _dayTracker),
         RepositoryProvider<CustomerRepository>.value(
           value: deps.customerRepository,
         ),

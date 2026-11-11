@@ -42,6 +42,7 @@ final class CustomerDetailState extends Equatable {
       deletionStep == CustomerDeletionStep.deleting;
 
   CustomerDetailState copyWith({
+    CalendarDate? today,
     CustomerDetailStatus? status,
     Customer? customer,
     List<DeviceMaintenanceOverview>? devices,
@@ -52,7 +53,7 @@ final class CustomerDetailState extends Equatable {
   }) {
     final nextStep = deletionStep ?? this.deletionStep;
     return CustomerDetailState(
-      today: today,
+      today: today ?? this.today,
       status: status ?? this.status,
       customer: customer ?? this.customer,
       devices: devices ?? this.devices,

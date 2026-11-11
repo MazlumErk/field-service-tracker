@@ -58,7 +58,7 @@ Text scales with the system font size; layouts must not overflow at 1.3×–2×.
 |---|---|---|
 | `AppScaffold` | ✅ Phase 1 | Title bar + safe-area body |
 | `AppMessageState` | ✅ Phase 1 | `.empty` / `.error` variants (replaces separate Empty/Error widgets — same layout) |
-| `NotFoundPage`, `PlaceholderPage` | ✅ Phase 1 | Routing fallbacks |
+| `NotFoundPage` | ✅ Phase 1 | Routing fallback for unknown paths and ids (the Phase 1 placeholder page was removed in Phase 6) |
 | Buttons, text fields, top bar | ✅ via theme | Styled through `ThemeData`; no wrapper widget unless behavior is added |
 | `AppSearchField` | ✅ Phase 3 | Search icon, clear button when text is entered |
 | `AppListSkeleton` | ✅ Phase 3 | Static (non-animated) placeholder cards while lists load |
@@ -72,7 +72,9 @@ Text scales with the system font size; layouts must not overflow at 1.3×–2×.
 | `MaintenanceRecordCard` | ✅ Phase 4 | Date, price, next date, filter chips, notes |
 | `AppDateField` | ✅ Phase 5 | Read-only field + Turkish date picker; clamps the initial date into range; unfocuses afterwards (no keyboard pop-up). Used by device and maintenance forms |
 | Filter selection | ✅ Phase 5 | Card with one `CheckboxListTile` per filter (48 dp rows); error outline + message when none is selected |
-| `AppMetricCard` | planned | Dashboard phase |
+| `AppMetricCard` | ✅ Phase 6 | KPI: tinted icon, metric number (status / brand color), label, optional hint. 2 × 2 grid with equal row heights; one column when narrow or text is large |
+| `MaintenanceOverviewTile` | ✅ Phase 6 | Customer, model, status badge, "n gün gecikti / kaldı", next date — dashboard priority list and maintenance list |
+| Status filter chips | ✅ Phase 6 | Horizontally scrollable `FilterChip`s with counts; selected = filled + check mark, others show the status icon |
 
 ## Dates
 

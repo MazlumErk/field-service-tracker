@@ -10,8 +10,8 @@ Legend: ✅ done · 🚧 in progress · ⏳ planned (phase)
 | 4 | Customers: list, search, detail, create/edit/delete | ✅ Phase 3 |
 | 5 | Devices: detail with history, create/edit, safe delete, customer relation | ✅ Phase 4 |
 | 6 | Maintenance: form, filters, history, status | ✅ Phase 5 |
-| 7 | Dashboard: statistics, priority list | ⏳ Phase 6 |
-| 8 | Maintenance overview with filters | ⏳ Phase 5–6 |
+| 7 | Dashboard: statistics, priority list | ✅ Phase 6 |
+| 8 | Maintenance overview with filters | ✅ Phase 6 |
 
 ## Maintenance status rules
 
@@ -153,5 +153,52 @@ delete. The unsaved-changes guard protects the form.
 - [x] Transactional save, progress state, double-submit guard, Turkish errors.
 - [x] Device detail shows the new record first; last / next dates and status update.
 - [x] Unsaved-changes dialog on both back paths; none after saving.
+- [x] Verified on the Android emulator; screenshots in `docs/images/`.
+
+## Phase 6 — Dashboard & maintenance overview
+
+### How the numbers are calculated
+
+- **Müşteri / Cihaz:** `watchCustomerCount()` and the number of rows of
+  `watchOverview()`.
+- **Geciken / Yaklaşan bakım:** `watchOverview()` returns **one row per
+  device** with its latest maintenance record (latest = maintenance date,
+  then creation time, then id). Each device is therefore counted once,
+  regardless of how many records it has. The status is computed for today
+  with `MaintenanceStatusCalculator` (overdue < 0 days, upcoming 0–30 days,
+  scheduled > 30 days, no record) — never stored.
+- **Öncelikli Bakımlar:** overdue + upcoming devices in priority order, the
+  first 5 shown, with "n öncelikli bakımdan 5 tanesi gösteriliyor" and
+  "Tüm Bakımları Gör" → Bakımlar tab.
+
+### Maintenance overview (Bakımlar)
+
+Filter chips with counts: Tümü, Geciken, Yaklaşan, Planlanan, Bakım Kaydı
+Yok (selected chip is filled and check-marked). Order (shared with the
+dashboard, `MaintenanceOverviewRules.sortByPriority`):
+
+1. Overdue — oldest next date first
+2. Upcoming — nearest next date first
+3. Scheduled — nearest next date first
+4. No record — customer name (Turkish alphabet), then model
+   (ties: device id)
+
+Tapping a row opens the device detail.
+
+### Day changes
+
+`DayTracker` (`TodayProvider`) re-reads `AppClock` when the app resumes and
+fires once just after each local midnight (single re-armed timer, no
+polling). Dashboard, maintenance list, customer detail and device detail
+recompute statuses for the new day without querying the database.
+
+### Acceptance criteria
+
+- [x] Four KPIs from real data; devices counted once.
+- [x] Priority list (overdue oldest first, then upcoming nearest first), limited, device detail on tap, "Tüm Bakımları Gör".
+- [x] Maintenance list with five filters, priority ordering, each device once.
+- [x] Reactive updates after customer / device / maintenance changes and demo reset (shared streams).
+- [x] Status refresh on day change (resume, midnight).
+- [x] Loading, empty and error states; no overflow at 2× text on 320 × 568.
 - [x] Verified on the Android emulator; screenshots in `docs/images/`.
 

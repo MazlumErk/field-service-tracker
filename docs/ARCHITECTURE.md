@@ -1,8 +1,8 @@
 # Architecture
 
-> Status: **Phase 5** — app shell, theme, routing, database, domain rules,
-> repositories, customer, device and maintenance-record management are
-> implemented. The maintenance overview list and dashboard are planned.
+> Status: **Phase 6** — all four tabs are implemented: dashboard,
+> customers (with devices and maintenance records), maintenance overview
+> and settings.
 > Rules are defined in [AGENTS.md](../AGENTS.md); this document explains them.
 
 ## Layers and data flow
@@ -27,6 +27,16 @@ flowchart TD
   function. Overviews store dates only; Cubits call `statusOn(today)` with
   `CalendarDate.today(clock)`, so the status is always correct for the
   current day even if no data changed.
+- **Shared overview rules:** `MaintenanceOverviewRules` (domain) counts and
+  orders overviews for both the dashboard and the maintenance list; no
+  screen implements its own status logic. Both screens listen to the same
+  `watchOverview()` query (one SQL statement, latest record via a
+  correlated sub-query) — no N+1 queries.
+- **Day changes:** `DayTracker` implements `TodayProvider`
+  (`today` + `changes` stream). It is created by the root widget, checks the
+  clock on `AppLifecycleState.resumed` and arms a single timer for just
+  after the next local midnight. Dashboard, maintenance list, customer
+  detail and device detail recompute statuses when it emits.
 - **Stream lifetime:** Drift watch streams are lazy; they stop when the last
   listener cancels (Cubits cancel in `close()`). `AppDependencies.dispose()`
   closes the database when the root widget is disposed.
@@ -45,6 +55,8 @@ types, so state subclasses with equal props would be equal).
 | `CustomerFormCubit` | Create / edit (`.create` / `.edit`); domain validation before saving; maps `DuplicateCustomerNumberException` to an inline field error; ignores submits unless in `editing` | `getCustomer`, `createCustomer`, `updateCustomer` |
 | `DeviceDetailCubit` | Combines device-overview and history streams; status and days until next maintenance; delete flow `idle → loadingImpact → confirming → deleting → deleted` | `watchDeviceOverview`, `watchHistory`, `getDeletionImpact`, `deleteDevice` |
 | `DeviceFormCubit` | Create (bound to a customer id) / edit (owner never sent); installation date held in state (date picker); domain validation; double-submit guard | `getDevice`, `createDevice`, `updateDevice` |
+| `DashboardCubit` | Combines customer count, device overview and day changes; KPIs and limited priority list via `MaintenanceOverviewRules` | `watchCustomerCount`, `watchOverview`, `TodayProvider.changes` |
+| `MaintenanceListCubit` | Same overview stream; status filter, counts per filter, priority order; filtering and day changes in memory | `watchOverview`, `TodayProvider.changes` |
 | `MaintenanceFormCubit` | Defaults (today, +6 months), date changes with suggestion tracking (`nextDateCustomized`), filter toggling (`Set`), price parsing, domain validation, double-submit guard | `watchDeviceOverview` (header, first value), `createRecord` |
 
 Forms wrap their page in `UnsavedChangesGuard` (`PopScope`), so the app bar

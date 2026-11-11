@@ -166,18 +166,6 @@ abstract class AppLocalizations {
   /// **'Yeni Bakım Kaydı'**
   String get maintenanceNewTitle;
 
-  /// No description provided for @placeholderTitle.
-  ///
-  /// In tr, this message translates to:
-  /// **'Bu ekran hazırlanıyor'**
-  String get placeholderTitle;
-
-  /// No description provided for @placeholderMessage.
-  ///
-  /// In tr, this message translates to:
-  /// **'İçerik bir sonraki geliştirme aşamasında eklenecek.'**
-  String get placeholderMessage;
-
   /// No description provided for @notFoundTitle.
   ///
   /// In tr, this message translates to:
@@ -907,6 +895,144 @@ abstract class AppLocalizations {
   /// In tr, this message translates to:
   /// **'Membran'**
   String get filterMembrane;
+
+  /// No description provided for @dashboardToday.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bugün: {date}'**
+  String dashboardToday(String date);
+
+  /// No description provided for @dashboardKpiCustomers.
+  ///
+  /// In tr, this message translates to:
+  /// **'Müşteri'**
+  String get dashboardKpiCustomers;
+
+  /// No description provided for @dashboardKpiDevices.
+  ///
+  /// In tr, this message translates to:
+  /// **'Cihaz'**
+  String get dashboardKpiDevices;
+
+  /// No description provided for @dashboardKpiOverdue.
+  ///
+  /// In tr, this message translates to:
+  /// **'Geciken bakım'**
+  String get dashboardKpiOverdue;
+
+  /// No description provided for @dashboardKpiUpcoming.
+  ///
+  /// In tr, this message translates to:
+  /// **'Yaklaşan bakım'**
+  String get dashboardKpiUpcoming;
+
+  /// No description provided for @dashboardKpiUpcomingHint.
+  ///
+  /// In tr, this message translates to:
+  /// **'30 gün içinde'**
+  String get dashboardKpiUpcomingHint;
+
+  /// No description provided for @dashboardPriorityTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Öncelikli Bakımlar'**
+  String get dashboardPriorityTitle;
+
+  /// No description provided for @dashboardSeeAll.
+  ///
+  /// In tr, this message translates to:
+  /// **'Tüm Bakımları Gör'**
+  String get dashboardSeeAll;
+
+  /// No description provided for @dashboardPriorityMore.
+  ///
+  /// In tr, this message translates to:
+  /// **'{count} öncelikli bakımdan {shown} tanesi gösteriliyor'**
+  String dashboardPriorityMore(int count, int shown);
+
+  /// No description provided for @dashboardPriorityEmptyTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Öncelikli bakım yok'**
+  String get dashboardPriorityEmptyTitle;
+
+  /// No description provided for @dashboardPriorityEmptyMessage.
+  ///
+  /// In tr, this message translates to:
+  /// **'Geciken veya 30 gün içinde yaklaşan bakım bulunmuyor.'**
+  String get dashboardPriorityEmptyMessage;
+
+  /// No description provided for @dashboardEmptyTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Henüz kayıt yok'**
+  String get dashboardEmptyTitle;
+
+  /// No description provided for @dashboardEmptyMessage.
+  ///
+  /// In tr, this message translates to:
+  /// **'İlk müşterinizi ve cihazını ekleyerek bakım takibine başlayın.'**
+  String get dashboardEmptyMessage;
+
+  /// No description provided for @maintenanceFilterAll.
+  ///
+  /// In tr, this message translates to:
+  /// **'Tümü'**
+  String get maintenanceFilterAll;
+
+  /// No description provided for @maintenanceFilterOverdue.
+  ///
+  /// In tr, this message translates to:
+  /// **'Geciken'**
+  String get maintenanceFilterOverdue;
+
+  /// No description provided for @maintenanceFilterUpcoming.
+  ///
+  /// In tr, this message translates to:
+  /// **'Yaklaşan'**
+  String get maintenanceFilterUpcoming;
+
+  /// No description provided for @maintenanceFilterScheduled.
+  ///
+  /// In tr, this message translates to:
+  /// **'Planlanan'**
+  String get maintenanceFilterScheduled;
+
+  /// No description provided for @maintenanceFilterNoRecord.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bakım Kaydı Yok'**
+  String get maintenanceFilterNoRecord;
+
+  /// No description provided for @maintenanceFilterWithCount.
+  ///
+  /// In tr, this message translates to:
+  /// **'{label} ({count})'**
+  String maintenanceFilterWithCount(String label, int count);
+
+  /// No description provided for @maintenanceListNoDevicesTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Henüz cihaz yok'**
+  String get maintenanceListNoDevicesTitle;
+
+  /// No description provided for @maintenanceListNoDevicesMessage.
+  ///
+  /// In tr, this message translates to:
+  /// **'Müşterilere cihaz eklediğinizde bakım durumları burada listelenir.'**
+  String get maintenanceListNoDevicesMessage;
+
+  /// No description provided for @maintenanceListFilterEmptyTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bu durumda cihaz yok'**
+  String get maintenanceListFilterEmptyTitle;
+
+  /// No description provided for @maintenanceListFilterEmptyMessage.
+  ///
+  /// In tr, this message translates to:
+  /// **'Seçili duruma uyan cihaz bulunmuyor. Başka bir filtre seçin.'**
+  String get maintenanceListFilterEmptyMessage;
 
   /// No description provided for @statusOverdue.
   ///

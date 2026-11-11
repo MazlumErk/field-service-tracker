@@ -17,9 +17,6 @@
   "deviceEditTitle": "Cihazı Düzenle",
   "maintenanceNewTitle": "Yeni Bakım Kaydı",
 
-  "placeholderTitle": "Bu ekran hazırlanıyor",
-  "placeholderMessage": "İçerik bir sonraki geliştirme aşamasında eklenecek.",
-
   "notFoundTitle": "Sayfa bulunamadı",
   "notFoundMessage": "Aradığınız kayıt veya sayfa mevcut değil ya da silinmiş olabilir.",
   "backToDashboard": "Genel Bakış'a dön",
@@ -187,6 +184,38 @@
   "filterGac": "GAC Karbon",
   "filterPost": "Post Mineral",
   "filterMembrane": "Membran",
+
+  "dashboardToday": "Bugün: {date}",
+  "@dashboardToday": { "placeholders": { "date": { "type": "String" } } },
+  "dashboardKpiCustomers": "Müşteri",
+  "dashboardKpiDevices": "Cihaz",
+  "dashboardKpiOverdue": "Geciken bakım",
+  "dashboardKpiUpcoming": "Yaklaşan bakım",
+  "dashboardKpiUpcomingHint": "30 gün içinde",
+  "dashboardPriorityTitle": "Öncelikli Bakımlar",
+  "dashboardSeeAll": "Tüm Bakımları Gör",
+  "dashboardPriorityMore": "{count} öncelikli bakımdan {shown} tanesi gösteriliyor",
+  "@dashboardPriorityMore": {
+    "placeholders": { "count": { "type": "int" }, "shown": { "type": "int" } }
+  },
+  "dashboardPriorityEmptyTitle": "Öncelikli bakım yok",
+  "dashboardPriorityEmptyMessage": "Geciken veya 30 gün içinde yaklaşan bakım bulunmuyor.",
+  "dashboardEmptyTitle": "Henüz kayıt yok",
+  "dashboardEmptyMessage": "İlk müşterinizi ve cihazını ekleyerek bakım takibine başlayın.",
+
+  "maintenanceFilterAll": "Tümü",
+  "maintenanceFilterOverdue": "Geciken",
+  "maintenanceFilterUpcoming": "Yaklaşan",
+  "maintenanceFilterScheduled": "Planlanan",
+  "maintenanceFilterNoRecord": "Bakım Kaydı Yok",
+  "maintenanceFilterWithCount": "{label} ({count})",
+  "@maintenanceFilterWithCount": {
+    "placeholders": { "label": { "type": "String" }, "count": { "type": "int" } }
+  },
+  "maintenanceListNoDevicesTitle": "Henüz cihaz yok",
+  "maintenanceListNoDevicesMessage": "Müşterilere cihaz eklediğinizde bakım durumları burada listelenir.",
+  "maintenanceListFilterEmptyTitle": "Bu durumda cihaz yok",
+  "maintenanceListFilterEmptyMessage": "Seçili duruma uyan cihaz bulunmuyor. Başka bir filtre seçin.",
 
   "statusOverdue": "Gecikti",
   "statusUpcoming": "Yaklaşıyor",

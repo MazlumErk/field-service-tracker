@@ -46,13 +46,6 @@ class AppLocalizationsTr extends AppLocalizations {
   String get maintenanceNewTitle => 'Yeni Bakım Kaydı';
 
   @override
-  String get placeholderTitle => 'Bu ekran hazırlanıyor';
-
-  @override
-  String get placeholderMessage =>
-      'İçerik bir sonraki geliştirme aşamasında eklenecek.';
-
-  @override
   String get notFoundTitle => 'Sayfa bulunamadı';
 
   @override
@@ -475,6 +468,85 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get filterMembrane => 'Membran';
+
+  @override
+  String dashboardToday(String date) {
+    return 'Bugün: $date';
+  }
+
+  @override
+  String get dashboardKpiCustomers => 'Müşteri';
+
+  @override
+  String get dashboardKpiDevices => 'Cihaz';
+
+  @override
+  String get dashboardKpiOverdue => 'Geciken bakım';
+
+  @override
+  String get dashboardKpiUpcoming => 'Yaklaşan bakım';
+
+  @override
+  String get dashboardKpiUpcomingHint => '30 gün içinde';
+
+  @override
+  String get dashboardPriorityTitle => 'Öncelikli Bakımlar';
+
+  @override
+  String get dashboardSeeAll => 'Tüm Bakımları Gör';
+
+  @override
+  String dashboardPriorityMore(int count, int shown) {
+    return '$count öncelikli bakımdan $shown tanesi gösteriliyor';
+  }
+
+  @override
+  String get dashboardPriorityEmptyTitle => 'Öncelikli bakım yok';
+
+  @override
+  String get dashboardPriorityEmptyMessage =>
+      'Geciken veya 30 gün içinde yaklaşan bakım bulunmuyor.';
+
+  @override
+  String get dashboardEmptyTitle => 'Henüz kayıt yok';
+
+  @override
+  String get dashboardEmptyMessage =>
+      'İlk müşterinizi ve cihazını ekleyerek bakım takibine başlayın.';
+
+  @override
+  String get maintenanceFilterAll => 'Tümü';
+
+  @override
+  String get maintenanceFilterOverdue => 'Geciken';
+
+  @override
+  String get maintenanceFilterUpcoming => 'Yaklaşan';
+
+  @override
+  String get maintenanceFilterScheduled => 'Planlanan';
+
+  @override
+  String get maintenanceFilterNoRecord => 'Bakım Kaydı Yok';
+
+  @override
+  String maintenanceFilterWithCount(String label, int count) {
+    return '$label ($count)';
+  }
+
+  @override
+  String get maintenanceListNoDevicesTitle => 'Henüz cihaz yok';
+
+  @override
+  String get maintenanceListNoDevicesMessage =>
+      'Müşterilere cihaz eklediğinizde bakım durumları burada listelenir.';
+
+  @override
+  String get maintenanceListFilterEmptyTitle => 'Bu durumda cihaz yok';
+
+  @override
+  String get maintenanceListFilterEmptyMessage =>
+      'Seçili duruma uyan cihaz bulunmuyor. Başka bir filtre seçin.';
 
   @override
   String get statusOverdue => 'Gecikti';

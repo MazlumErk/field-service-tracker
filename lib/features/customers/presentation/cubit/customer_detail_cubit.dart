@@ -21,6 +21,7 @@ class CustomerDetailCubit extends Cubit<CustomerDetailState> {
     required CustomerRepository customerRepository,
     required MaintenanceRepository maintenanceRepository,
     required AppClock clock,
+    this._dayChanges,
   }) : _customers = customerRepository,
        _maintenance = maintenanceRepository,
        super(CustomerDetailState(today: CalendarDate.today(clock)));
@@ -36,7 +37,15 @@ class CustomerDetailCubit extends Cubit<CustomerDetailState> {
   List<DeviceMaintenanceOverview>? _latestDevices;
   bool _customerReceived = false;
 
+  /// Calendar-day changes (from `TodayProvider`); statuses are
+  /// recomputed for the new day without touching the database.
+  final Stream<CalendarDate>? _dayChanges;
+  StreamSubscription<CalendarDate>? _daySubscription;
+
   void load() {
+    _daySubscription ??= _dayChanges?.listen(
+      (today) => emit(state.copyWith(today: today)),
+    );
     unawaited(_customerSubscription?.cancel());
     unawaited(_devicesSubscription?.cancel());
     _customerReceived = false;
@@ -140,6 +149,7 @@ class CustomerDetailCubit extends Cubit<CustomerDetailState> {
 
   @override
   Future<void> close() async {
+    await _daySubscription?.cancel();
     await _customerSubscription?.cancel();
     await _devicesSubscription?.cancel();
     return super.close();

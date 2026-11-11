@@ -3,11 +3,10 @@
 **Offline-first field service and maintenance management application built
 with Flutter, BLoC and SQLite.**
 
-> 🚧 **Work in progress — Phase 5 of 9 (maintenance & filters).**
-> Customers, devices and recording maintenance visits (filters, price,
-> notes, next date) work end to end on a tested SQLite database. The
-> dashboard and the maintenance overview are being built; see the
-> [roadmap](#roadmap).
+> 🚧 **Work in progress — Phase 6 of 9 (dashboard & maintenance overview).**
+> All four tabs are functional: dashboard, customers, maintenance overview
+> and settings, on a tested SQLite database. UX refinement, CI and the
+> portfolio release follow; see the [roadmap](#roadmap).
 
 ## Project Overview
 
@@ -31,11 +30,18 @@ offline, with all data stored on the device. The UI is in Turkish.
 | Device detail: status, days until/over due, read-only maintenance history | ✅ |
 | Unsaved-changes protection on all forms | ✅ |
 | Maintenance records: dates (6-month suggestion), filter replacements, Turkish lira price, notes | ✅ |
-| Overdue / upcoming maintenance tracking and dashboard | ⏳ |
+| Dashboard: customers, devices, overdue and upcoming KPIs, priority list | ✅ |
+| Maintenance overview with status filters and priority ordering | ✅ |
+| Statuses refresh when the calendar day changes (resume / midnight) | ✅ |
 
 ## Screenshots
 
-Real screenshots from the Android emulator (Phase 4 build, demo data):
+Real screenshots from the Android emulator (demo data):
+
+| Dashboard | Maintenance overview | Overdue filter |
+|---|---|---|
+| ![Dashboard](docs/images/dashboard.png) | ![Maintenance overview](docs/images/maintenance_overview.png) | ![Overdue filter](docs/images/maintenance_overdue_filter.png) |
+
 
 | Customer detail | Device detail | Maintenance history |
 |---|---|---|
@@ -125,7 +131,7 @@ See [docs/DESIGN_SYSTEM.md](docs/DESIGN_SYSTEM.md).
 3. ✅ Customers — list, search, form, detail, safe delete
 4. ✅ Devices — add, edit, detail with history, safe delete
 5. ✅ Maintenance — record visits with filters, price, notes and next date
-6. ⏳ Dashboard
+6. ✅ Dashboard & maintenance overview
 7. ⏳ UX refinement
 8. ⏳ Quality assurance & CI
 9. ⏳ Portfolio release — screenshots, demo video, APK

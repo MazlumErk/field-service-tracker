@@ -59,6 +59,7 @@ final class DeviceDetailState extends Equatable {
       deletionStep == DeviceDeletionStep.deleting;
 
   DeviceDetailState copyWith({
+    CalendarDate? today,
     DeviceDetailStatus? status,
     DeviceMaintenanceOverview? overview,
     List<MaintenanceRecord>? history,
@@ -69,7 +70,7 @@ final class DeviceDetailState extends Equatable {
   }) {
     final nextStep = deletionStep ?? this.deletionStep;
     return DeviceDetailState(
-      today: today,
+      today: today ?? this.today,
       status: status ?? this.status,
       overview: overview ?? this.overview,
       history: history ?? this.history,
