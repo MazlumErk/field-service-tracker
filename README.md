@@ -304,9 +304,12 @@ documented phases (foundation → database → customers → devices →
 maintenance → dashboard → settings → QA → portfolio preparation).
 Feature list and acceptance criteria: [docs/FEATURES.md](docs/FEATURES.md).
 
-**License:** not chosen yet — until a license file is added, all rights are
-reserved. The bundled Inter typeface is licensed under the SIL Open Font
-License 1.1 ([`assets/fonts/inter/OFL.txt`](assets/fonts/inter/OFL.txt)).
+**License:** the project source code is released under the
+[MIT License](LICENSE). Third-party components keep their own licenses: the
+bundled Inter typeface is licensed under the SIL Open Font License 1.1
+([`assets/fonts/inter/OFL.txt`](assets/fonts/inter/OFL.txt)), and the Dart /
+Flutter packages under their respective licenses (listed in the app under
+*Ayarlar → Açık kaynak lisansları*).
 
 This is an independent portfolio project, not affiliated with any company,
 and it contains no real customer data.
