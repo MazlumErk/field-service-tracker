@@ -103,4 +103,7 @@ short and functional (state changes, list updates, save feedback).
 `docs/images/banner.png` (1280 × 640) uses the same tokens — background
 `#F7FAFC`, primary `#0F766E`, secondary `#234E70`, Inter — around three real
 screenshots. Gallery screenshots in `docs/images/screens/` are real
-emulator captures scaled to 540 × 1200.
+emulator captures scaled to 540 × 1200. The README showcase panels in
+`docs/images/showcase/` (1800 × 1179, one per category) place those same
+screenshots, only scaled, in phone frames on a navy background with teal
+accents.

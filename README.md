@@ -47,20 +47,22 @@ network connection and has no backend.
 
 ## Screenshots
 
-Real screenshots from an Android emulator (API 37, 1080 × 2400, fictional
-demo data):
+Real screenshots from an Android emulator (API 37, fictional demo data),
+placed in phone frames — the screen contents are unedited.
 
-| Dashboard | Customers | Customer detail | Device detail |
-|---|---|---|---|
-| ![Dashboard with KPIs and priority list](docs/images/screens/01_dashboard.png) | ![Customer list with search](docs/images/screens/02_customers.png) | ![Customer detail with devices](docs/images/screens/03_customer_detail.png) | ![Device detail with status](docs/images/screens/04_device_detail.png) |
+### Core Screens
 
-| Maintenance history | Maintenance form | Maintenance overview | Settings |
-|---|---|---|---|
-| ![Device maintenance history](docs/images/screens/05_maintenance_history.png) | ![New maintenance record form](docs/images/screens/06_maintenance_form.png) | ![Maintenance overview with status filters](docs/images/screens/07_maintenance_overview.png) | ![Settings with demo data reset](docs/images/screens/08_settings.png) |
+<a href="docs/images/showcase/showcase_core_screens.png"><img src="docs/images/showcase/showcase_core_screens.png" alt="Core screens: Dashboard, Customers, Customer Detail and Device Detail" width="100%"></a>
 
-| Validation errors | Delete confirmation | Unsaved changes |
-|---|---|---|
-| ![Turkish validation errors](docs/images/screens/09_validation_errors.png) | ![Delete confirmation with impact](docs/images/screens/10_delete_confirmation.png) | ![Unsaved changes dialog](docs/images/screens/11_unsaved_changes.png) |
+### Maintenance & Service
+
+<a href="docs/images/showcase/showcase_maintenance_service.png"><img src="docs/images/showcase/showcase_maintenance_service.png" alt="Maintenance &amp; Service: Maintenance History, Maintenance Form, Maintenance Overview and Settings" width="100%"></a>
+
+### Dialogs & Validation
+
+<a href="docs/images/showcase/showcase_dialogs_validation.png"><img src="docs/images/showcase/showcase_dialogs_validation.png" alt="Dialogs &amp; Validation: Validation Errors, Delete Confirmation and Unsaved Changes" width="100%"></a>
+
+The individual screenshots are in [`docs/images/screens/`](docs/images/screens/).
 
 ### Demo video
 
