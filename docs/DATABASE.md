@@ -1,6 +1,6 @@
 # Database
 
-> Status: **implemented in Phase 2** (schema v1).
+> Status: schema **v1**, implemented in Phase 2 and unchanged since.
 > Integrity rules are defined in [AGENTS.md §7](../AGENTS.md#7-database-rules).
 
 Code: `lib/database/` (tables, DAOs, converters, seed, error mapping) and

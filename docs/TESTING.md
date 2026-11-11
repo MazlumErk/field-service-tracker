@@ -57,7 +57,7 @@ dart run drift_dev schema generate drift_schemas/app_database/ test/database/gen
 Rollback tests create a temporary SQLite trigger that `RAISE(ABORT)`s in the
 middle of a transaction and assert that no partial data remains.
 
-## Current suites (Phase 7)
+## Current suites
 
 | File | Covers |
 |---|---|
@@ -84,7 +84,14 @@ middle of a transaction and assert that no partial data remains.
 | `test/features/settings/settings_page_test.dart` | Identity / version / licenses, reset cancel keeps data, confirmed reset restores demo data and updates dashboard and customer list, `SettingsCubit` success / failure / single run, 2× text |
 | `test/app/**` | Phase 1 app shell, routing, theme |
 
-## Manual Android verification (Phase 3)
+## Manual Android verification
+
+The checks below were run at the end of each phase. Screenshots taken in
+Phases 4–7 were replaced in Phase 9 by the curated gallery in
+[`docs/images/screens/`](images/screens/) (the originals remain in the git
+history).
+
+### Phase 3
 
 Emulator `Medium_Phone_API_37.0`, fresh install with demo data:
 
@@ -100,10 +107,9 @@ Emulator `Medium_Phone_API_37.0`, fresh install with demo data:
 Found and fixed during this check: dates without year, search field
 regaining focus (keyboard) after returning from a detail page.
 
-## Manual Android verification (Phase 4)
+### Phase 4
 
-Emulator `Medium_Phone_API_37.0`, fresh install with demo data. Screenshots:
-`docs/images/`.
+Emulator `Medium_Phone_API_37.0`, fresh install with demo data.
 
 1. Özlem Şimşek → Cihaz ekle → "AquaPure X1", serial, date via the Turkish
    picker → Kaydet → device detail ("Bakım Kaydı Yok", empty history) → back
@@ -123,11 +129,9 @@ Found and fixed: after closing the date picker or the unsaved-changes dialog
 focus returned to the last text field and reopened the keyboard (the next
 Android back press then only closed the keyboard).
 
-## Manual Android verification (Phase 5)
+### Phase 5
 
-Fresh install, emulator date 10 Nov 2026. Screenshots: `maintenance_form.png`,
-`maintenance_validation_errors.png`, `maintenance_filter_selection.png`,
-`maintenance_history_updated.png` in `docs/images/`.
+Fresh install, emulator date 10 Nov 2026.
 
 1. Fatma Şahin → AquaPure RO-5 ("Gecikti") → Yeni bakım ekle: header, dates
    10 Kas 2026 / 10 May 2027 → Sediment, CTO Karbon, Membran, ₺ 1.250,50,
@@ -141,10 +145,9 @@ Fresh install, emulator date 10 Nov 2026. Screenshots: `maintenance_form.png`,
 4. No filter + price "12,345" → "En az bir filtre seçin." and
    "Geçerli bir tutar girin (örn. 1.250,50)."
 
-## Manual Android verification (Phase 6)
+### Phase 6
 
-Fresh install (emulator date 11 Nov 2026). Screenshots: `dashboard.png`,
-`maintenance_overview.png`, `maintenance_overdue_filter.png`.
+Fresh install (emulator date 11 Nov 2026).
 
 1. Dashboard: 20 / 28 / 5 overdue / 10 upcoming; first priority row
    Fatma Şahin "60 gün gecikti" → device detail.
@@ -157,10 +160,9 @@ Fresh install (emulator date 11 Nov 2026). Screenshots: `dashboard.png`,
 Narrow screen / 2× text is covered by widget tests (system font size of the
 emulator was not changed).
 
-## Manual Android verification (Phase 7)
+### Phase 7
 
-Fresh install. Screenshots: `settings.png`, `settings_reset_dialog.png`,
-`settings_reset_success.png`.
+Fresh install.
 
 1. Ayarlar → Demo verilerini sıfırla → Vazgeç: database unchanged
    (20 customers, 28 devices, 63 records).
@@ -200,3 +202,20 @@ not changed in Phase 8.
 
 Transaction rollback of record + filters is covered by
 `drift_maintenance_repository_test.dart` (Phase 2) and was not duplicated.
+
+## Phase 9 — CI, release and portfolio checks
+
+- **CI:** `.github/workflows/ci.yml` runs on push and pull request to
+  `main`: `flutter pub get`, `dart run build_runner build`,
+  `git diff --exit-code` (committed generated code must be current),
+  `dart format --set-exit-if-changed`, `flutter analyze`, `flutter test`.
+  It uses a read-only token and no secrets. Locally, `build_runner`
+  produced no diff in the generated files.
+- **Release signing:** verified with a throwaway keystore and without
+  `key.properties` (debug-key fallback with a warning); see
+  [RELEASE.md](RELEASE.md).
+- **Demo video** (`docs/media/demo.mp4`): recorded on a fresh install with a
+  coordinate-only script; the same script was replayed with checkpoint
+  screenshots (search, customer, device, form, saved record, dashboard
+  overdue 5 → 4, overdue filter, reset dialog, dashboard back to 5) and every
+  checkpoint matched.

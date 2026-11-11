@@ -19,7 +19,8 @@ import 'package:material_ui/material_ui.dart';
 /// Root widget: owns the router and exposes app-wide dependencies.
 ///
 /// Repositories are provided by their **interface** type; Cubits are created
-/// per route with `BlocProvider` (from Phase 3 on).
+/// per route with `BlocProvider`. The [DayTracker] reporting calendar-day
+/// changes lives here as well.
 class FieldServiceTrackerApp extends StatefulWidget {
   const FieldServiceTrackerApp({
     required this.clock,

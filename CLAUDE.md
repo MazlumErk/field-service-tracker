@@ -18,7 +18,8 @@ follow it. This file only describes how Claude Code works in this repository.
 - Read existing files before modifying or deleting them.
 - Ask before architectural changes that alter the project goal.
 - Commit locally after a completed phase; **do not push without explicit
-  approval**. Never make the GitHub repository public.
+  approval**. Repository visibility, releases and published builds change
+  only with the owner's explicit approval.
 - Verify package APIs and versions against pub.dev / official docs.
 
 ## Useful references

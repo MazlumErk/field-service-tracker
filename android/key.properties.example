@@ -1,0 +1,6 @@
+# Copy to android/key.properties (git-ignored) and fill in your own values.
+# Never commit key.properties or the keystore file. See docs/RELEASE.md.
+storeFile=C:/path/outside/the/repository/field-service-tracker-release.jks
+storePassword=YOUR_STORE_PASSWORD
+keyAlias=field-service-tracker
+keyPassword=YOUR_KEY_PASSWORD

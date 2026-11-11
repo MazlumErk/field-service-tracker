@@ -12,6 +12,11 @@ Legend: ✅ done · 🚧 in progress · ⏳ planned (phase)
 | 6 | Maintenance: form, filters, history, status | ✅ Phase 5 |
 | 7 | Dashboard: statistics, priority list | ✅ Phase 6 |
 | 8 | Maintenance overview with filters | ✅ Phase 6 |
+| 9 | QA, UX and accessibility polish (2× text, navigation, price input) | ✅ Phase 8 |
+| 10 | Portfolio: README, screenshots, demo video, CI, release signing setup | ✅ Phase 9 |
+
+Out of scope for this version: user accounts, cloud sync, backup / export,
+editing or deleting single maintenance records, iOS, dark theme.
 
 ## Maintenance status rules
 

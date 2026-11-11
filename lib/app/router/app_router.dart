@@ -36,8 +36,8 @@ import 'package:material_ui/material_ui.dart';
 /// * Detail and form pages are pushed on the root navigator
 ///   (`parentNavigatorKey: rootNavigatorKey`) so they cover the bottom bar
 ///   and the Android back button simply pops them.
-///
-/// Placeholder pages are replaced feature by feature in later phases.
+/// * Each route creates its page's Cubit with `BlocProvider`, so the Cubit
+///   (and its stream subscriptions) is closed when the route is removed.
 GoRouter createAppRouter({String initialLocation = AppRoutes.dashboard}) {
   final rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
 

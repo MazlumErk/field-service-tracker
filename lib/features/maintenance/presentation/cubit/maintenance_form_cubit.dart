@@ -14,7 +14,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 /// Logic of the "new maintenance record" form for one device.
 ///
 /// Defaults: maintenance date = today, next date = today + 6 calendar months
-/// (`MaintenanceSchedule`). Validation uses the Phase 2 domain rules; the
+/// (`MaintenanceSchedule`). Validation uses the domain rules (`MaintenanceValidator`); the
 /// record and its filters are saved in one repository transaction.
 class MaintenanceFormCubit extends Cubit<MaintenanceFormState> {
   MaintenanceFormCubit({

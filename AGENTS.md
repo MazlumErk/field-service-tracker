@@ -129,6 +129,10 @@ docs/                  ARCHITECTURE, DATABASE, DESIGN_SYSTEM, FEATURES, TESTING
 
 - Never commit secrets, keystores, `key.properties`, `.env`, local databases,
   build output or machine-specific files (see `.gitignore`).
-- The GitHub repository is **private**. Never change its visibility.
-- Commit locally with meaningful messages; push only with the owner's
+- Repository visibility, releases and published builds change only with
+  the owner's explicit approval; never rewrite published history or
+  force-push.
+- Commit with meaningful English messages; push only with the owner's
   explicit approval.
+- Release signing material (keystore, passwords) stays outside the
+  repository — see `docs/RELEASE.md`.

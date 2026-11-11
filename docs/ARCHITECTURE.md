@@ -1,8 +1,8 @@
 # Architecture
 
-> Status: **Phase 7** — all four tabs are implemented: dashboard,
-> customers (with devices and maintenance records), maintenance overview
-> and settings with demo data reset.
+> Status: **v0.1.0, feature-complete** — dashboard, customers (with devices
+> and maintenance records), maintenance overview and settings with demo data
+> reset.
 > Rules are defined in [AGENTS.md](../AGENTS.md); this document explains them.
 
 ## Layers and data flow
@@ -124,6 +124,18 @@ popped. Repositories and the database are app-wide singletons.
 - The owner link on the device detail uses `go` (not `push`) to the
   customer inside the Müşteriler tab, so customer ↔ device navigation can
   never grow the stack beyond list → customer → device.
+
+## Technology choices
+
+| Choice | Why | Alternatives considered |
+|---|---|---|
+| **Flutter** | One code base with native performance, strong testing tools (widget tests run the whole app headless), Material 3 out of the box | Native Kotlin — more code for the same UI, no shared logic for a later iOS version |
+| **Cubit (`flutter_bloc`)** | Explicit, immutable states that are easy to test with `bloc_test`; screens have simple intent → state flows, so Bloc events would add ceremony | Bloc (no event transformers needed yet), Provider / ValueNotifier (less structure for async flows) |
+| **Drift + SQLite** | Relational data with real constraints (FK, UNIQUE, CHECK) and transactions; typed queries checked at build time; reactive `watch()` streams; built-in schema export and migration testing | Hive / Isar (no relational integrity), raw `sqflite` (untyped SQL, manual streams) |
+| **go_router** | Declarative, URL-style routes with typed path parameters, `StatefulShellRoute` for tabs that keep their state, a single `NotFoundPage` fallback | Navigator 2.0 directly (much more code), auto_route (code generation for little gain here) |
+| **Repository interfaces** | Cubits depend on abstractions, so they are tested with mocks and never see Drift types | Calling DAOs from Cubits (couples UI logic to the database) |
+| **gen-l10n** | Official tooling; compile-time checked Turkish strings, ready for more locales | Hard-coded strings |
+| **GitHub Actions** | Free for the repository, no secrets needed for format / analyze / test | — |
 
 ## Key decisions
 
